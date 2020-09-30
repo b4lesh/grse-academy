@@ -1,4 +1,4 @@
 {
   "extends": ["stylelint-prettier/recommended"],
-  "linebreaks": ["unix"]
+  "linebreaks": ["windows"]
 }
