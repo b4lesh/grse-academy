@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-interface Task {
+interface ITask {
   id: number;
   text: string;
   isDone: boolean;
@@ -12,7 +12,9 @@ interface Task {
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  todoList: Array<Task> = [{ id: 1, text: 'Сходить в магазин', isDone: false }];
+  todoList: Array<ITask> = [
+    { id: 1, text: 'Сходить в магазин', isDone: false },
+  ];
   inputId: number;
   inputChangedText: string;
   inputNewText: string;
