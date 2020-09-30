@@ -1,1 +1,58 @@
-<h1>Hello</h1>
+<body>
+  <h1 class="title">Список дел</h1>
+  <table>
+    <thead>
+      <tr>
+        <th class="id">#</th>
+        <th class="text">Задача</th>
+        <th class="isDone">Статус</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let task of todoList">
+        <td class="id">{{ task.id }}</td>
+        <td class="text">{{ task.text }}</td>
+        <td class="isDone">{{ task.isDone ? 'Готово' : 'Сделать' }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="space"></div>
+  <div class="changeTask">
+    <h3>Изменение задачи:</h3>
+    <div>
+      <label>
+        ID задачи которую необходимо изменить
+        <input [(ngModel)]="inputId" />
+      </label>
+    </div>
+    <div>
+      <label>
+        Текст задачи
+        <input class="inputText" [(ngModel)]="inputChangedText" />
+      </label>
+    </div>
+    <div>
+      <label>
+        Статус задачи
+        <input type="checkbox" [(ngModel)]="inputIsDone" />
+      </label>
+    </div>
+    <div>
+      <button class="button" (click)="changeTask()">Изменить задачу</button>
+    </div>
+  </div>
+  <div class="space"></div>
+  <div class="addTask">
+    <h3>Добавление задачи:</h3>
+    <label>
+      Текст задачи
+      <input class="inputText" [(ngModel)]="inputNewText" />
+    </label>
+    <div>
+      <button [hidden]="!inputNewText" class="button" (click)="addTask()">
+        Добавить задачу
+      </button>
+    </div>
+  </div>
+</body>

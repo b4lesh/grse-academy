@@ -1,0 +1,49 @@
+table,
+td,
+th {
+  border: 1px solid #333;
+}
+
+table {
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+.id {
+  min-width: 100%;
+  text-align: center;
+}
+
+.text {
+  padding: 10px;
+}
+
+.isDone {
+  padding: 10px;
+  text-align: center;
+  max-width: 1px;
+}
+
+body {
+  font-family: Roboto, serif;
+  width: 800px;
+}
+
+.title {
+  text-align: center;
+}
+
+.space {
+  height: 50px;
+}
+
+.button {
+  font-family: 'Roboto Medium', serif;
+  font-size: 16px;
+  width: 500px;
+  height: 50px;
+}
+
+.inputText {
+  width: 500px;
+}
