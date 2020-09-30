@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
-
-interface ITask {
-  id: number;
-  text: string;
-  isDone: boolean;
-}
+import { ITask } from './modules/itask';
+import { data } from './database/data';
 
 @Component({
   selector: 'app-root',
@@ -12,16 +8,18 @@ interface ITask {
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  todoList: Array<ITask> = [
-    { id: 1, text: 'Сходить в магазин', isDone: false },
-  ];
+  todoList: Array<ITask> = [];
   inputId: number;
   inputChangedText: string;
   inputNewText: string;
   inputIsDone: boolean;
 
+  constructor() {
+    this.todoList = data;
+  }
+
   changeTask(): void {
-    const inputId: number = Number(this.inputId);
+    const inputId = Number(this.inputId);
     const inputText = this.inputChangedText;
     const inputIsDone = this.inputIsDone;
     let isBe = false;
