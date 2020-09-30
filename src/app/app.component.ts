@@ -5,13 +5,16 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-// interface ITodoList {
-//   id: number;
-//   text: string;
-//   isDone: boolean;
-// }
+interface ITask {
+  id: number;
+  text: string;
+  isDone: boolean;
+}
+
 export class AppComponent {
-  todoList = [{ id: 1, text: 'Сходить в магазин', isDone: false }];
+  todoList: Array<ITask> = [
+    { id: 1, text: 'Сходить в магазин', isDone: false },
+  ];
   inputId: number;
   inputChangedText: string;
   inputNewText: string;
