@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
 
+interface Task {
+  id: number;
+  text: string;
+  isDone: boolean;
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-// interface ITodoList {
-//   id: number;
-//   text: string;
-//   isDone: boolean;
-// }
 export class AppComponent {
-  todoList = [{ id: 1, text: 'Сходить в магазин', isDone: false }];
+  todoList: Array<Task> = [{ id: 1, text: 'Сходить в магазин', isDone: false }];
   inputId: number;
   inputChangedText: string;
   inputNewText: string;
