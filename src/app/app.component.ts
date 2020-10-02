@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ITask } from './modules/itask';
 import { data } from './database/data';
 
 @Component({
@@ -8,15 +7,15 @@ import { data } from './database/data';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  todoList: Array<ITask> = [];
+  todoList = data; // Вопрос! Нормальная ли это практика? p.s.: конструктор закомментирован
   inputId: number;
   inputChangedText: string;
   inputNewText: string;
   inputIsDone: boolean;
 
-  constructor() {
-    this.todoList = data;
-  }
+  // constructor() {
+  //   // this.todoList = data;
+  // }
 
   ngOnInit(): void {}
 

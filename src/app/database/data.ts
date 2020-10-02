@@ -1,1 +1,3 @@
-export const data = [{ id: 1, text: 'Сходить в магазин', isDone: false }];
+import { ITask } from '../modules/itask';
+
+export const data: Array<ITask> = [{ id: 1, text: 'Hello', isDone: true }];
