@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ITask } from './modules/itask';
 import { data } from './database/data';
 
@@ -7,7 +7,7 @@ import { data } from './database/data';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
   todoList: Array<ITask> = [];
   inputId: number;
   inputChangedText: string;
@@ -17,6 +17,10 @@ export class AppComponent {
   constructor() {
     this.todoList = data;
   }
+
+  ngOnInit(): void {}
+
+  ngOnDestroy(): void {}
 
   changeTask(): void {
     const inputId = Number(this.inputId);
