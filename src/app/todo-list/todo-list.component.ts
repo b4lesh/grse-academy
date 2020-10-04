@@ -8,39 +8,44 @@ import { data } from '../database/data';
 })
 export class TodoListComponent implements OnInit {
   todoList = data; // Вопрос! Нормальная ли это практика? p.s.: конструктор закомментирован
-  inputId: number;
-  inputChangedText: string;
-  inputNewText: string;
+  inputNumber: number;
+  inputText: string;
   inputIsDone: boolean;
+  isDisplayAddTaskContainer = false;
+  isDisplayChangeTaskContainer = false;
+
   constructor() {}
 
   ngOnInit(): void {}
 
-  changeTask(): void {
-    const inputId = Number(this.inputId);
-    const inputText = this.inputChangedText;
-    const inputIsDone = this.inputIsDone;
-    let isBe = false;
-    // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < this.todoList.length; i++) {
-      if (this.todoList[i].id === inputId) {
-        this.todoList.splice(i, 1);
-        console.log(this.todoList);
-        isBe = true;
-        break;
-      }
-    }
-    if (isBe) {
-      this.todoList.push({ id: inputId, text: inputText, isDone: inputIsDone });
-    }
+  displayAddTaskContainer(): void {
+    this.isDisplayAddTaskContainer = !this.isDisplayAddTaskContainer;
+  }
+
+  displayChangeTaskContainer(inputNumber): void {
+    this.isDisplayChangeTaskContainer = true;
+    this.inputNumber = inputNumber;
   }
 
   addTask(): void {
-    const inputId = this.todoList.length + 1;
-    const inputText = this.inputNewText;
+    const inputText = this.inputText;
     const inputIsDone = false;
+    const lastId = this.todoList[this.todoList.length - 1].id;
+    const inputId = lastId + 1;
+
     if (inputText) {
       this.todoList.push({ id: inputId, text: inputText, isDone: inputIsDone });
     }
+
+    this.inputText = null;
+    this.isDisplayAddTaskContainer = false;
+  }
+
+  changeTextTask(): void {
+    const i = this.inputNumber;
+    this.todoList[i].text = this.inputText;
+
+    this.inputText = null;
+    this.isDisplayChangeTaskContainer = false;
   }
 }

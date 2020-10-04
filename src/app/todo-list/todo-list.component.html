@@ -1,56 +1,69 @@
-<h1 class="title">Список дел</h1>
-<table>
-  <thead>
-    <tr>
-      <th class="id">#</th>
-      <th class="text">Задача</th>
-      <th class="isDone">Статус</th>
-    </tr>
-  </thead>
+<link
+  href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&display=swap"
+  rel="stylesheet"
+/>
+<link
+  href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap"
+  rel="stylesheet"
+/>
 
-  <tbody>
-    <tr *ngFor="let task of todoList">
-      <td class="id">{{ task.id }}</td>
-      <td class="text">{{ task.text }}</td>
-      <td class="isDone">{{ task.isDone ? 'Готово' : 'Сделать' }}</td>
-    </tr>
-  </tbody>
-</table>
-<div class="space"></div>
-<div class="changeTask">
-  <h3>Изменение задачи:</h3>
-  <div>
-    <label>
-      ID задачи которую необходимо изменить
-      <input [(ngModel)]="inputId" />
-    </label>
-  </div>
-  <div>
-    <label>
-      Текст задачи
-      <input class="inputText" [(ngModel)]="inputChangedText" />
-    </label>
-  </div>
-  <div>
-    <label>
-      Статус задачи
-      <input type="checkbox" [(ngModel)]="inputIsDone" />
-    </label>
-  </div>
-  <div>
-    <button class="button" (click)="changeTask()">Изменить задачу</button>
-  </div>
-</div>
-<div class="space"></div>
-<div class="addTask">
-  <h3>Добавление задачи:</h3>
-  <label>
-    Текст задачи
-    <input class="inputText" [(ngModel)]="inputNewText" />
-  </label>
-  <div>
-    <button [hidden]="!inputNewText" class="button" (click)="addTask()">
-      Добавить задачу
-    </button>
+<header>To Do List</header>
+<div id="main">
+  <div id="column-1">
+    <div id="todo-table-box">
+      <table id="todo-table">
+        <thead>
+          <tr>
+            <th class="id">#</th>
+            <th class="text">Задача</th>
+            <th class="is-done">Статус</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let task of todoList; index as i">
+            <td class="id" (click)="displayChangeTaskContainer(i)">
+              {{ i + 1 }}
+            </td>
+            <td class="text" (click)="displayChangeTaskContainer(i)">
+              {{ task.text }}
+            </td>
+            <td class="is-done">{{ task.isDone ? 'Готово' : 'Сделать' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="button-box">
+      <button id="button-add" (click)="displayAddTaskContainer()">
+        + Добавить задачу
+      </button>
+    </div>
+
+    <div [hidden]="!isDisplayAddTaskContainer">
+      <div id="add-task-container">
+        <div class="add-task-text">Текст задачи:</div>
+        <div class="add-task-space"></div>
+        <div>
+          <label>
+            <input id="add-task-input" type="text" [(ngModel)]="inputText" />
+          </label>
+        </div>
+        <div class="add-task-text"></div>
+        <div>
+          <button (click)="addTask()">Сохранить</button>
+        </div>
+      </div>
+    </div>
+
+    <div [hidden]="!isDisplayChangeTaskContainer">
+      <h3>Изменение задачи:</h3>
+      <div>
+        <label>
+          Текст задачи
+          <input class="inputText" [(ngModel)]="inputText" />
+        </label>
+      </div>
+      <button (click)="changeTextTask()">Сохранить</button>
+    </div>
   </div>
 </div>
