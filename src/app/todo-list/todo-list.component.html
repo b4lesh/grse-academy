@@ -9,6 +9,7 @@
 
 <header>To Do List</header>
 <div id="main">
+  <div></div>
   <div id="column-1">
     <div id="todo-table-box">
       <table id="todo-table">
@@ -33,37 +34,48 @@
       </table>
     </div>
 
-    <div id="button-box">
-      <button id="button-add" (click)="displayAddTaskContainer()">
+    <div class="add-task-button-container">
+      <button class="button-add" (click)="displayAddTaskContainer()">
         + Добавить задачу
       </button>
     </div>
 
-    <div [hidden]="!isDisplayAddTaskContainer">
-      <div id="add-task-container">
-        <div class="add-task-text">Текст задачи:</div>
-        <div class="add-task-space"></div>
-        <div>
-          <label>
-            <input id="add-task-input" type="text" [(ngModel)]="inputText" />
-          </label>
-        </div>
-        <div class="add-task-text"></div>
-        <div>
-          <button (click)="addTask()">Сохранить</button>
-        </div>
+    <div class="add-task-container" [hidden]="!isDisplayAddTaskContainer">
+      <div class="add-task-container">
+        <label>
+          <input
+            class="add-task-input"
+            type="text"
+            placeholder="Текст задачи"
+            [(ngModel)]="inputText"
+            (keyup.enter)="addTask()"
+          />
+        </label>
+      </div>
+      <div class="save-task-button-container">
+        <button class="button-save" (click)="addTask()">Сохранить</button>
       </div>
     </div>
 
     <div [hidden]="!isDisplayChangeTaskContainer">
-      <h3>Изменение задачи:</h3>
-      <div>
+      <p class="text-change-task">~ Изменить задачу</p>
+      <div class="add-task-container">
         <label>
-          Текст задачи
-          <input class="inputText" [(ngModel)]="inputText" />
+          <input
+            class="add-task-input"
+            type="text"
+            placeholder="Новый текст задачи"
+            [(ngModel)]="inputText"
+            (keyup.enter)="changeTextTask()"
+          />
         </label>
       </div>
-      <button (click)="changeTextTask()">Сохранить</button>
+      <div class="save-task-button-container">
+        <button class="button-save" (click)="changeTextTask()">
+          Сохранить
+        </button>
+      </div>
     </div>
   </div>
+  <div></div>
 </div>

@@ -20,11 +20,13 @@ export class TodoListComponent implements OnInit {
 
   displayAddTaskContainer(): void {
     this.isDisplayAddTaskContainer = !this.isDisplayAddTaskContainer;
+    this.isDisplayChangeTaskContainer = false;
   }
 
   displayChangeTaskContainer(inputNumber): void {
     this.isDisplayChangeTaskContainer = true;
     this.inputNumber = inputNumber;
+    this.isDisplayAddTaskContainer = false;
   }
 
   addTask(): void {
