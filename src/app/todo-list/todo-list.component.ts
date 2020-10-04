@@ -19,6 +19,7 @@ export class TodoListComponent implements OnInit {
   ngOnInit(): void {}
 
   displayAddTaskContainer(): void {
+    console.log(this.todoList);
     this.isDisplayAddTaskContainer = !this.isDisplayAddTaskContainer;
     this.isDisplayChangeTaskContainer = false;
   }
@@ -32,8 +33,13 @@ export class TodoListComponent implements OnInit {
   addTask(): void {
     const inputText = this.inputText;
     const inputIsDone = false;
-    const lastId = this.todoList[this.todoList.length - 1].id;
-    const inputId = lastId + 1;
+    let inputId: number;
+    if (this.todoList.length) {
+      const lastId = this.todoList[this.todoList.length - 1].id;
+      inputId = lastId + 1;
+    } else {
+      inputId = 0;
+    }
 
     if (inputText) {
       this.todoList.push({ id: inputId, text: inputText, isDone: inputIsDone });
@@ -49,5 +55,14 @@ export class TodoListComponent implements OnInit {
 
     this.inputText = null;
     this.isDisplayChangeTaskContainer = false;
+  }
+
+  changeIsDoneTask(inputNumber): void {
+    const currentValue = this.todoList[inputNumber].isDone;
+    this.todoList[inputNumber].isDone = !currentValue;
+  }
+
+  deleteTask(inputNumber): void {
+    this.todoList.splice(inputNumber, 1);
   }
 }

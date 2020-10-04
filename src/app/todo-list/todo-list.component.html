@@ -18,6 +18,13 @@
             <th class="id">#</th>
             <th class="text">Задача</th>
             <th class="is-done">Статус</th>
+            <th class="trash-img-title">
+              <img
+                class="trash-img"
+                src="https://raw.githubusercontent.com/b4lesh/grse-academy/master/src/app/todo-list/images/trash.png"
+                alt="trash"
+              />
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -28,7 +35,24 @@
             <td class="text" (click)="displayChangeTaskContainer(i)">
               {{ task.text }}
             </td>
-            <td class="is-done">{{ task.isDone ? 'Готово' : 'Сделать' }}</td>
+            <td class="is-done">
+              <label>
+                <input
+                  class="button-is-done"
+                  type="checkbox"
+                  [checked]="task.isDone"
+                  (click)="changeIsDoneTask(i)"
+                />
+              </label>
+            </td>
+            <td class="td-delete">
+              <img
+                class="trash-img"
+                src="https://raw.githubusercontent.com/b4lesh/grse-academy/master/src/app/todo-list/images/trash.png"
+                alt="trash"
+                (click)="deleteTask(i)"
+              />
+            </td>
           </tr>
         </tbody>
       </table>
@@ -75,6 +99,9 @@
           Сохранить
         </button>
       </div>
+    </div>
+    <div *ngFor="let task of todoList">
+      <p>{{ task.id }} : {{ task.text }} : {{ task.isDone }}</p>
     </div>
   </div>
   <div></div>

@@ -30,6 +30,7 @@ header {
 
 th,
 td {
+  height: 40px;
   border: 1px solid darkgray;
   padding: 5px;
 }
@@ -45,7 +46,7 @@ th {
 
 .id {
   text-align: center;
-  min-width: 30px;
+  min-width: 40px;
 }
 
 .text {
@@ -57,7 +58,27 @@ th {
 
 .is-done {
   text-align: center;
-  min-width: 100px;
+  min-width: 102px;
+}
+
+.td-delete {
+  border: 0;
+  padding: 0 10px;
+}
+
+.trash-img,
+.trash-img-title {
+  height: 35px;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.trash-img-title {
+  background: 0;
+  padding: 0 10px;
+  border: 0;
+  opacity: 0;
 }
 
 .add-task-button-container {
@@ -78,6 +99,7 @@ th {
 .button-add:focus {
   outline: 0;
 }
+
 .save-task-button-container {
   padding: 10px;
 }
@@ -113,4 +135,9 @@ th {
   text-align: center;
   font-family: 'Roboto Slab', serif;
   font-size: 30px;
+}
+
+.button-is-done {
+  transform: scale(2);
+  opacity: 0.9;
 }
