@@ -28,6 +28,7 @@ export class TodoListComponent implements OnInit {
     this.isDisplayChangeTaskContainer = true;
     this.inputNumber = inputNumber;
     this.isDisplayAddTaskContainer = false;
+    this.inputText = this.todoList[inputNumber].text;
   }
 
   addTask(): void {
@@ -64,5 +65,8 @@ export class TodoListComponent implements OnInit {
 
   deleteTask(inputNumber): void {
     this.todoList.splice(inputNumber, 1);
+    this.inputText = null;
+    this.isDisplayAddTaskContainer = false;
+    this.isDisplayChangeTaskContainer = false;
   }
 }

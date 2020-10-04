@@ -77,7 +77,7 @@
         </label>
       </div>
       <div class="save-task-button-container">
-        <button class="button-save" (click)="addTask()">Сохранить</button>
+        <button class="button-save" (click)="addTask()">Добавить</button>
       </div>
     </div>
 
@@ -95,11 +95,10 @@
         </label>
       </div>
       <div class="save-task-button-container">
-        <button class="button-save" (click)="changeTextTask()">
-          Сохранить
-        </button>
+        <button class="button-save" (click)="changeTextTask()">Изменить</button>
       </div>
     </div>
+    <p><b>База данных:</b></p>
     <div *ngFor="let task of todoList">
       <p>{{ task.id }} : {{ task.text }} : {{ task.isDone }}</p>
     </div>
