@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TodoListComponent } from './todo-list/todo-list.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 
 const routes: Routes = [
   { path: '', component: NavigationBarComponent },
-  { path: 'todo-list', component: TodoListComponent },
+  {
+    path: 'todo-list',
+    loadChildren: () =>
+      import('./todo-list/todo-list.module').then((m) => m.TodoListModule),
+  },
 ];
 
 @NgModule({
