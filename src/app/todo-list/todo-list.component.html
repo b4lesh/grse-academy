@@ -7,101 +7,108 @@
   rel="stylesheet"
 />
 
-<header>To Do List</header>
-<div id="main">
-  <div></div>
-  <div id="column-1">
-    <div id="todo-table-box">
-      <table id="todo-table">
-        <thead>
-          <tr>
-            <th class="id">#</th>
-            <th class="text">Задача</th>
-            <th class="is-done">Статус</th>
-            <th class="trash-img-title">
-              <img
-                class="trash-img"
-                src="https://raw.githubusercontent.com/b4lesh/grse-academy/master/src/app/todo-list/images/trash.png"
-                alt="trash"
-              />
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let task of todoList; index as i">
-            <td class="id" (click)="displayChangeTaskContainer(i)">
-              {{ i + 1 }}
-            </td>
-            <td class="text" (click)="displayChangeTaskContainer(i)">
-              {{ task.text }}
-            </td>
-            <td class="is-done">
-              <label>
-                <input
-                  class="button-is-done"
-                  type="checkbox"
-                  [checked]="task.isDone"
-                  (click)="changeIsDoneTask(i)"
+<div class="page">
+  <nav class="navigation-bar">
+    <app-navigation-bar></app-navigation-bar>
+  </nav>
+  <div><header>To Do List</header></div>
+  <div id="main">
+    <div></div>
+    <div id="column-1">
+      <div id="todo-table-box">
+        <table id="todo-table">
+          <thead>
+            <tr>
+              <th class="id">#</th>
+              <th class="text">Задача</th>
+              <th class="is-done">Статус</th>
+              <th class="trash-img-title">
+                <img
+                  class="trash-img"
+                  src="https://raw.githubusercontent.com/b4lesh/grse-academy/master/src/app/todo-list/images/trash.png"
+                  alt="trash"
                 />
-              </label>
-            </td>
-            <td class="td-delete">
-              <img
-                class="trash-img"
-                src="https://raw.githubusercontent.com/b4lesh/grse-academy/master/src/app/todo-list/images/trash.png"
-                alt="trash"
-                (click)="deleteTask(i)"
-              />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let task of todoList; index as i">
+              <td class="id" (click)="displayChangeTaskContainer(i)">
+                {{ i + 1 }}
+              </td>
+              <td class="text" (click)="displayChangeTaskContainer(i)">
+                {{ task.text }}
+              </td>
+              <td class="is-done">
+                <label>
+                  <input
+                    class="button-is-done"
+                    type="checkbox"
+                    [checked]="task.isDone"
+                    (click)="changeIsDoneTask(i)"
+                  />
+                </label>
+              </td>
+              <td class="td-delete">
+                <img
+                  class="trash-img"
+                  src="https://raw.githubusercontent.com/b4lesh/grse-academy/master/src/app/todo-list/images/trash.png"
+                  alt="trash"
+                  (click)="deleteTask(i)"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-    <div class="add-task-button-container">
-      <button class="button-add" (click)="displayAddTaskContainer()">
-        + Добавить задачу
-      </button>
-    </div>
+      <div class="add-task-button-container">
+        <button class="button-add" (click)="displayAddTaskContainer()">
+          + Добавить задачу
+        </button>
+      </div>
 
-    <div class="add-task-container" [hidden]="!isDisplayAddTaskContainer">
-      <div class="add-task-container">
-        <label>
-          <input
-            class="add-task-input"
-            type="text"
-            placeholder="Текст задачи"
-            [(ngModel)]="inputText"
-            (keyup.enter)="addTask()"
-          />
-        </label>
+      <div class="add-task-container" [hidden]="!isDisplayAddTaskContainer">
+        <div class="add-task-container">
+          <label>
+            <input
+              class="add-task-input"
+              type="text"
+              placeholder="Текст задачи"
+              [(ngModel)]="inputText"
+              (keyup.enter)="addTask()"
+            />
+          </label>
+        </div>
+        <div class="save-task-button-container">
+          <button class="button-save" (click)="addTask()">Добавить</button>
+        </div>
       </div>
-      <div class="save-task-button-container">
-        <button class="button-save" (click)="addTask()">Добавить</button>
-      </div>
-    </div>
 
-    <div [hidden]="!isDisplayChangeTaskContainer">
-      <p class="text-change-task">~ Изменить задачу</p>
-      <div class="add-task-container">
-        <label>
-          <input
-            class="add-task-input"
-            type="text"
-            placeholder="Новый текст задачи"
-            [(ngModel)]="inputText"
-            (keyup.enter)="changeTextTask()"
-          />
-        </label>
+      <div [hidden]="!isDisplayChangeTaskContainer">
+        <p class="text-change-task">~ Изменить задачу</p>
+        <div class="add-task-container">
+          <label>
+            <input
+              class="add-task-input"
+              type="text"
+              placeholder="Новый текст задачи"
+              [(ngModel)]="inputText"
+              (keyup.enter)="changeTextTask()"
+            />
+          </label>
+        </div>
+        <div class="save-task-button-container">
+          <button class="button-save" (click)="changeTextTask()">
+            Изменить
+          </button>
+        </div>
       </div>
-      <div class="save-task-button-container">
-        <button class="button-save" (click)="changeTextTask()">Изменить</button>
+      <p><b>База данных:</b></p>
+      <div *ngFor="let task of todoList">
+        <p>{{ task.id }} : {{ task.text }} : {{ task.isDone }}</p>
       </div>
     </div>
-    <p><b>База данных:</b></p>
-    <div *ngFor="let task of todoList">
-      <p>{{ task.id }} : {{ task.text }} : {{ task.isDone }}</p>
-    </div>
+    <div></div>
   </div>
-  <div></div>
 </div>

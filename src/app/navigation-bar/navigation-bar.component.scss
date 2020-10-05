@@ -1,0 +1,36 @@
+.navigation-bar {
+  position: fixed;
+  width: 260px;
+  height: 100%;
+  min-height: 1000px;
+  background-image: url('https://raw.githubusercontent.com/b4lesh/grse-academy/master/src/app/navigation-bar/images/navigation-bar.jpg');
+  display: grid;
+  grid-template-columns: 50px auto;
+  grid-template-rows: 50px 50px;
+  padding: 20px;
+}
+
+.nav-text-container {
+  position: relative;
+  padding: 10px;
+}
+
+.nav-text {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+
+  color: whitesmoke;
+  font-family: 'Roboto Black', serif;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.nav-text:hover {
+  color: #b8cf69;
+}
+
+.nav-img {
+  height: 30px;
+  padding: 10px;
+}
