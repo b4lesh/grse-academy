@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { data } from '../database/data';
 
 @Component({
@@ -7,7 +7,7 @@ import { data } from '../database/data';
   styleUrls: ['./todo-list.component.scss'],
 })
 export class TodoListComponent implements OnInit, OnDestroy {
-  todoList = data; // Вопрос! Нормальная ли это практика? p.s.: конструктор закомментирован
+  todoList = data;
   inputNumber: number;
   inputText: string;
   inputIsDone: boolean;
