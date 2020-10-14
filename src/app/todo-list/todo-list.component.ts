@@ -21,6 +21,7 @@ export class TodoListComponent implements OnInit {
 
   constructor(private http: HttpClient, private fb: FormBuilder) {
     this.getData();
+
     setTimeout(
       () =>
         this.dataValue.forEach((value, i) =>
@@ -32,6 +33,7 @@ export class TodoListComponent implements OnInit {
         ),
       100
     );
+
     setTimeout(() => this.todoList.splice(10, 190), 100);
   }
 
