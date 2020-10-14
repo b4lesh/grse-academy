@@ -1,18 +1,25 @@
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+import { ITask } from '../modules/itask';
+
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss'],
 })
-export class TodoListComponent implements OnInit, OnDestroy {
+export class TodoListComponent implements OnInit {
   dataValue: Array<any>;
   todoList: Array<ITask> = [];
   inputNumber: number;
-  inputText: string;
   inputIsDone: boolean;
   isDisplayAddTaskContainer = false;
   isDisplayChangeTaskContainer = false;
+  addTaskGroup: FormGroup;
+  changeTaskGroup: FormGroup;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private fb: FormBuilder) {
     this.getData();
     setTimeout(
       () =>
@@ -25,14 +32,17 @@ export class TodoListComponent implements OnInit, OnDestroy {
         ),
       100
     );
+    setTimeout(() => this.todoList.splice(10, 190), 100);
   }
 
   ngOnInit(): void {
-    console.log('Init');
-  }
+    this.addTaskGroup = this.fb.group({
+      inputText: ['', Validators.required],
+    });
 
-  ngOnDestroy(): void {
-    console.log('Destroy');
+    this.changeTaskGroup = this.fb.group({
+      inputText: '',
+    });
   }
 
   getData(): void {
@@ -42,8 +52,6 @@ export class TodoListComponent implements OnInit, OnDestroy {
   }
 
   displayAddTaskContainer(): void {
-    console.log(this.todoList);
-
     this.isDisplayAddTaskContainer = !this.isDisplayAddTaskContainer;
     this.isDisplayChangeTaskContainer = false;
   }
@@ -52,11 +60,13 @@ export class TodoListComponent implements OnInit, OnDestroy {
     this.isDisplayChangeTaskContainer = true;
     this.inputNumber = inputNumber;
     this.isDisplayAddTaskContainer = false;
-    this.inputText = this.todoList[inputNumber].text;
+    this.changeTaskGroup.setValue({
+      inputText: this.todoList[inputNumber].text,
+    });
   }
 
   addTask(): void {
-    const inputText = this.inputText;
+    const inputText = this.addTaskGroup.value.inputText;
     const inputIsDone = false;
     let inputId: number;
     if (this.todoList.length) {
@@ -66,19 +76,17 @@ export class TodoListComponent implements OnInit, OnDestroy {
       inputId = 0;
     }
 
-    if (inputText) {
-      this.todoList.push({ id: inputId, text: inputText, isDone: inputIsDone });
-    }
+    this.todoList.push({ id: inputId, text: inputText, isDone: inputIsDone });
 
-    this.inputText = null;
+    this.addTaskGroup.setValue({ inputText: '' }); // Это норма?
     this.isDisplayAddTaskContainer = false;
   }
 
   changeTextTask(): void {
     const i = this.inputNumber;
-    this.todoList[i].text = this.inputText;
+    this.todoList[i].text = this.changeTaskGroup.value.inputText;
 
-    this.inputText = null;
+    this.changeTaskGroup.setValue({ inputText: '' }); // Это норма?
     this.isDisplayChangeTaskContainer = false;
   }
 
@@ -89,13 +97,8 @@ export class TodoListComponent implements OnInit, OnDestroy {
 
   deleteTask(inputNumber): void {
     this.todoList.splice(inputNumber, 1);
-    this.inputText = null;
+    // this.inputText = null;
     this.isDisplayAddTaskContainer = false;
     this.isDisplayChangeTaskContainer = false;
   }
 }
-
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
-import { ITask } from '../modules/itask';

@@ -11,7 +11,9 @@
   <nav class="navigation-bar">
     <app-navigation-bar></app-navigation-bar>
   </nav>
-  <div><header>To Do List</header></div>
+  <div>
+    <header>To Do List</header>
+  </div>
   <div id="main">
     <div></div>
     <div id="column-1">
@@ -69,31 +71,37 @@
       </div>
 
       <div class="add-task-container" [hidden]="!isDisplayAddTaskContainer">
-        <div class="add-task-container">
+        <div class="add-task-container" [formGroup]="addTaskGroup">
           <label>
             <input
               class="add-task-input"
               type="text"
               placeholder="Текст задачи"
-              [(ngModel)]="inputText"
+              formControlName="inputText"
               (keyup.enter)="addTask()"
             />
           </label>
         </div>
         <div class="save-task-button-container">
-          <button class="button-save" (click)="addTask()">Добавить</button>
+          <button
+            class="button-save"
+            (click)="addTask()"
+            [disabled]="!addTaskGroup.valid"
+          >
+            Добавить
+          </button>
         </div>
       </div>
 
       <div [hidden]="!isDisplayChangeTaskContainer">
         <p class="text-change-task">~ Изменить задачу</p>
-        <div class="add-task-container">
+        <div class="add-task-container" [formGroup]="changeTaskGroup">
           <label>
             <input
               class="add-task-input"
               type="text"
               placeholder="Новый текст задачи"
-              [(ngModel)]="inputText"
+              formControlName="inputText"
               (keyup.enter)="changeTextTask()"
             />
           </label>
@@ -104,10 +112,13 @@
           </button>
         </div>
       </div>
-      <p><b>База данных:</b></p>
-      <div *ngFor="let task of todoList">
-        <p>{{ task.id }} : {{ task.text }} : {{ task.isDone }}</p>
-      </div>
+      <!--      <p><b>База данных:</b></p>-->
+      <!--      <div *ngFor="let task of todoList">-->
+      <!--        <p>{{ task.id }} : {{ task.text }} : {{ task.isDone }}</p>-->
+      <!--      </div>-->
+      <!--      <pre>-->
+      <!--        {{ addTaskGroup.value | json }}-->
+      <!--      </pre>-->
     </div>
     <div></div>
   </div>
