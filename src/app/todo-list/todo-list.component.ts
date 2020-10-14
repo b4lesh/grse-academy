@@ -1,20 +1,31 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { data } from '../database/data';
-
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss'],
 })
 export class TodoListComponent implements OnInit, OnDestroy {
-  todoList = data;
+  dataValue: Array<any>;
+  todoList: Array<ITask> = [];
   inputNumber: number;
   inputText: string;
   inputIsDone: boolean;
   isDisplayAddTaskContainer = false;
   isDisplayChangeTaskContainer = false;
 
-  constructor() {}
+  constructor(private http: HttpClient) {
+    this.getData();
+    setTimeout(
+      () =>
+        this.dataValue.forEach((value, i) =>
+          this.todoList.push({
+            id: i,
+            text: value.title,
+            isDone: value.completed,
+          })
+        ),
+      100
+    );
+  }
 
   ngOnInit(): void {
     console.log('Init');
@@ -24,8 +35,15 @@ export class TodoListComponent implements OnInit, OnDestroy {
     console.log('Destroy');
   }
 
+  getData(): void {
+    this.http
+      .get<any>('https://jsonplaceholder.typicode.com/todos')
+      .subscribe((data) => (this.dataValue = Object.values(data)));
+  }
+
   displayAddTaskContainer(): void {
     console.log(this.todoList);
+
     this.isDisplayAddTaskContainer = !this.isDisplayAddTaskContainer;
     this.isDisplayChangeTaskContainer = false;
   }
@@ -76,3 +94,8 @@ export class TodoListComponent implements OnInit, OnDestroy {
     this.isDisplayChangeTaskContainer = false;
   }
 }
+
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+import { ITask } from '../modules/itask';
