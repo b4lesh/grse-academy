@@ -31,10 +31,10 @@ export class TodoListComponent implements OnInit {
             isDone: value.completed,
           })
         ),
-      100
+      1000
     );
 
-    setTimeout(() => this.todoList.splice(10, 190), 100);
+    setTimeout(() => this.todoList.splice(10, 190), 1200);
   }
 
   ngOnInit(): void {
