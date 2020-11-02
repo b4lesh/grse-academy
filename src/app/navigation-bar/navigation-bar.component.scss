@@ -1,11 +1,11 @@
 .navigation-bar {
-  position: absolute;
+  position: fixed;
   width: 260px;
   height: 100%;
   background-image: url('https://raw.githubusercontent.com/b4lesh/grse-academy/master/src/app/navigation-bar/images/navigation-bar.jpg');
   display: grid;
   grid-template-columns: 50px auto;
-  grid-template-rows: 50px 50px;
+  grid-template-rows: 70px 50px 50px;
   padding: 20px;
 }
 
@@ -32,4 +32,8 @@
 .nav-img {
   height: 30px;
   padding: 10px;
+}
+
+.nav-username {
+  grid-column: 1 / 3;
 }

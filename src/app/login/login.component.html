@@ -7,8 +7,16 @@
     </label>
     <div class="input-label">Пароль</div>
     <label>
-      <input class="input-form" type="password" formControlName="password" />
+      <input
+        class="input-form"
+        type="password"
+        formControlName="password"
+        (keyup.enter)="login()"
+      />
     </label>
+    <p class="login-error-text" *ngIf="loginErrorStatus">
+      Логин или пароль неверный
+    </p>
     <button class="btn" (click)="login()" [disabled]="!loginForm.valid">
       Войти
     </button>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { User } from '../modules/user';
 
 @Component({
   selector: 'app-login',
@@ -8,8 +9,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  loginErrorStatus = false;
+  currentUser = localStorage.getItem('currentUser');
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) {
+    if (this.currentUser) {
+      location.href = '/todo-list';
+    }
+  }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -19,7 +26,21 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    console.log('Логин:', this.loginForm.value.username);
-    console.log('Пароль:', this.loginForm.value.password);
+    const users: Array<User> = JSON.parse(localStorage.getItem('user'));
+    const username = this.loginForm.value.username.toLowerCase();
+    const password = this.loginForm.value.password;
+
+    let isLogin = false;
+    for (const user of users) {
+      if (
+        user.username.toLowerCase() === username &&
+        user.password === password
+      ) {
+        isLogin = true;
+        localStorage.setItem('currentUser', user.username);
+        location.href = '/todo-list';
+      }
+    }
+    this.loginErrorStatus = !isLogin;
   }
 }
