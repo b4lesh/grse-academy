@@ -1,8 +1,7 @@
 .navigation-bar {
-  position: fixed;
+  position: absolute;
   width: 260px;
   height: 100%;
-  min-height: 1000px;
   background-image: url('https://raw.githubusercontent.com/b4lesh/grse-academy/master/src/app/navigation-bar/images/navigation-bar.jpg');
   display: grid;
   grid-template-columns: 50px auto;

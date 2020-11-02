@@ -92,7 +92,6 @@
           </button>
         </div>
       </div>
-
       <div [hidden]="!isDisplayChangeTaskContainer">
         <p class="text-change-task">~ Изменить задачу</p>
         <div class="add-task-container" [formGroup]="changeTaskGroup">
@@ -112,13 +111,7 @@
           </button>
         </div>
       </div>
-      <!--      <p><b>База данных:</b></p>-->
-      <!--      <div *ngFor="let task of todoList">-->
-      <!--        <p>{{ task.id }} : {{ task.text }} : {{ task.isDone }}</p>-->
-      <!--      </div>-->
-      <!--      <pre>-->
-      <!--        {{ addTaskGroup.value | json }}-->
-      <!--      </pre>-->
+      <app-login></app-login>
     </div>
     <div></div>
   </div>

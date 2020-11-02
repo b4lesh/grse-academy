@@ -1,0 +1,16 @@
+<div class="main">
+  <div class="login-form" [formGroup]="loginForm">
+    <h1>Вход</h1>
+    <div class="input-label">Логин</div>
+    <label
+      ><input class="input-form" type="text" formControlName="username"
+    /></label>
+    <div class="input-label">Пароль</div>
+    <label
+      ><input class="input-form" type="password" formControlName="password"
+    /></label>
+    <button class="btn" (click)="login()" [disabled]="!loginForm.valid">
+      Войти
+    </button>
+  </div>
+</div>
