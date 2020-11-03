@@ -1,25 +1,33 @@
-<app-navigation-bar></app-navigation-bar>
-<div class="main">
-  <div class="login-form" [formGroup]="loginForm">
-    <h1>Вход</h1>
-    <div class="input-label">Логин</div>
-    <label>
-      <input class="input-form" type="text" formControlName="username" />
-    </label>
-    <div class="input-label">Пароль</div>
-    <label>
-      <input
-        class="input-form"
-        type="password"
-        formControlName="password"
-        (keyup.enter)="login()"
-      />
-    </label>
-    <p class="login-error-text" *ngIf="loginErrorStatus">
-      Логин или пароль неверный
-    </p>
-    <button class="btn" (click)="login()" [disabled]="!loginForm.valid">
-      Войти
-    </button>
+<div class="main-page">
+  <div class="navbar">
+    <app-navigation-bar></app-navigation-bar>
+  </div>
+  <div class="body">
+    <div class="login-form" [formGroup]="loginForm">
+      <h1>Вход</h1>
+      <label>
+        <input
+          class="input-form"
+          type="text"
+          placeholder="Логин"
+          formControlName="username"
+        />
+      </label>
+      <label>
+        <input
+          class="input-form"
+          type="password"
+          placeholder="Пароль"
+          formControlName="password"
+          (keyup.enter)="login()"
+        />
+      </label>
+      <button class="btn" (click)="login()" [disabled]="!loginForm.valid">
+        Войти
+      </button>
+      <p class="login-error-text" *ngIf="loginErrorStatus">
+        Логин или пароль неверный
+      </p>
+    </div>
   </div>
 </div>
