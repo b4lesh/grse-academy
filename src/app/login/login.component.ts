@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
       ) {
         isLogin = true;
         localStorage.setItem('currentUser', user.username);
-        location.href = '/todo-list';
+        location.href = '/';
       }
     }
     this.loginErrorStatus = !isLogin;

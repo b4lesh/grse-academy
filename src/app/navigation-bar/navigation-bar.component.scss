@@ -1,39 +1,67 @@
-.navigation-bar {
-  position: fixed;
-  width: 260px;
-  height: 100%;
-  background-image: url('https://raw.githubusercontent.com/b4lesh/grse-academy/master/src/app/navigation-bar/images/navigation-bar.jpg');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
+
+.navbar-container {
   display: grid;
-  grid-template-columns: 50px auto;
-  grid-template-rows: 70px 50px 50px;
-  padding: 20px;
+  height: 48px;
+  background: #f5f5f6;
+  border-bottom: 1px solid #d5dddf;
 }
 
-.nav-text-container {
-  position: relative;
-  padding: 10px;
+.navbar-main {
+  width: 1100px;
+  margin: 0 20px;
+  display: grid;
+  justify-self: center;
+  grid-template-columns: 1fr 1fr;
 }
 
-.nav-text {
-  position: absolute;
-  top: 50%;
-  transform: translate(0, -50%);
+.navbar-left {
+  justify-self: start;
+  align-self: center;
+}
 
-  color: whitesmoke;
-  font-family: 'Roboto Black', serif;
-  font-size: 20px;
+.navbar-right {
+  justify-self: end;
+  align-self: center;
+}
+
+.navbar-link {
+  margin-right: 0.6rem;
+  font-size: 16px;
+  font-weight: 600;
+  color: #909090;
   text-decoration: none;
 }
 
-.nav-text:hover {
-  color: #b8cf69;
+.navbar-link-active {
+  color: #464646;
 }
 
-.nav-img {
-  height: 30px;
-  padding: 10px;
+.navbar-link:hover {
+  color: #464646;
 }
 
-.nav-username {
-  grid-column: 1 / 3;
+.navbar-btn-login,
+.navbar-btn-register,
+.navbar-btn-logout {
+  margin-left: 0.6rem;
+  padding: 5px 10px;
+  color: #3e3e3e;
+  font-weight: 600;
+  border: 0;
+  border-radius: 4px;
+  background: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+.navbar-btn-register {
+  background: #ffdd2d;
+}
+
+.navbar-btn-login:hover,
+.navbar-btn-register:hover,
+.navbar-btn-logout:hover {
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }

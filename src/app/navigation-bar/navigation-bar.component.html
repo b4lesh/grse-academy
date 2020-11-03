@@ -1,26 +1,30 @@
-<div class="navigation-bar">
-  <div class="nav-username"></div>
-  <div class="nav-img-container">
-    <img
-      class="nav-img"
-      src="https://raw.githubusercontent.com/b4lesh/grse-academy/master/src/app/navigation-bar/images/nav-home.png"
-      alt="Home"
-      routerLink=""
-    />
+<nav class="navbar-container">
+  <div class="navbar-main">
+    <div class="navbar-left">
+      <a
+        class="navbar-link"
+        routerLinkActive="navbar-link-active"
+        routerLink="/"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        Главная
+      </a>
+      <a
+        class="navbar-link"
+        routerLinkActive="navbar-link-active"
+        routerLink="/todo-list"
+      >
+        Список задач
+      </a>
+    </div>
+    <div class="navbar-right">
+      <button *ngIf="!status" class="navbar-btn-login" routerLink="/login">
+        Войти
+      </button>
+      <button *ngIf="!status" class="navbar-btn-register">Регистрация</button>
+      <button *ngIf="status" class="navbar-btn-logout" (click)="logout()">
+        Выйти
+      </button>
+    </div>
   </div>
-  <div class="nav-text-container">
-    <a class="nav-text" routerLink="">Главная</a>
-  </div>
-
-  <div class="nav-img-container">
-    <img
-      class="nav-img"
-      src="https://raw.githubusercontent.com/b4lesh/grse-academy/master/src/app/navigation-bar/images/nav-clipboard.png"
-      alt="Clipboard"
-      routerLink="/todo-list"
-    />
-  </div>
-  <div class="nav-text-container">
-    <a class="nav-text" routerLink="/todo-list">Список дел</a>
-  </div>
-</div>
+</nav>
