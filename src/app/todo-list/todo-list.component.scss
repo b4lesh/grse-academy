@@ -1,156 +1,117 @@
-.page {
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
+
+.main-page {
+  width: 100vw;
+  height: 100vh;
   display: grid;
-  grid-template-columns: 300px 1fr;
-  grid-template-rows: 85px 1000px;
+  grid-template-rows: 48px auto;
 }
 
-.navigation-bar {
-  grid-column: 1/2;
-  grid-row: 1/3;
-}
-
-header {
-  color: #b8cf69;
-  background: #3b474c;
-  font-family: 'Kalam', cursive;
-  font-size: 50px;
-  text-align: center;
-  padding: 10px 0;
-  height: 65px;
-}
-
-#main {
-  font-family: 'Roboto', serif;
-  color: #1c1c1c;
-  padding: 20px;
-  display: grid;
-  grid-template-columns: 1fr 800px 1fr;
-}
-
-#column-1 {
-  //height: 20px;
-  width: 100%;
-}
-
-#todo-table-box {
-  font-family: 'Roboto Slab', serif;
-  font-size: 20px;
-}
-
-#todo-table {
-  border-collapse: collapse;
-}
-
-th,
-td {
-  height: 40px;
-  border: 1px solid darkgray;
-  padding: 5px;
-}
-
-th {
-  text-align: center;
-  background: #f5f5f5;
-}
-
-.p-table {
-  margin: 0;
-}
-
-.id {
-  text-align: center;
-  min-width: 40px;
-}
-
-.text {
-  width: 100%;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  padding: 5px 15px;
-}
-
-.is-done {
-  text-align: center;
-  min-width: 102px;
-}
-
-.td-delete {
-  border: 0;
-  padding: 0 10px;
-}
-
-.trash-img,
-.trash-img-title {
-  height: 35px;
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
-}
-
-.trash-img-title {
-  background: 0;
-  padding: 0 10px;
-  border: 0;
-  opacity: 0;
-}
-
-.add-task-button-container {
+.body {
+  width: 1100px;
+  height: 100%;
+  justify-self: center;
   padding: 20px 0;
+  margin: 0 20px;
+  color: #222222;
 }
 
-.button-add {
-  width: 100%;
-  height: 50px;
-  font-family: 'Roboto Slab', serif;
-  font-size: 20px;
-  color: #484848;
-  background: #ecf8da;
-  border-radius: 10px;
-  border: 1px solid #808080;
-}
-
-.button-add:focus {
-  outline: 0;
-}
-
-.save-task-button-container {
-  padding: 10px;
-}
-
-.button-save {
-  position: relative;
-  left: 50%;
-  transform: translate(-50%, 0);
-  padding: 5px;
-  border-radius: 30px;
-  width: 100px;
-  border: 1px solid #bebebe;
-  font-family: 'Roboto Slab', serif;
-  font-size: 14px;
-}
-
-.add-task-container {
-  max-width: 100%;
-}
-
-.add-task-input {
+.table {
+  display: grid;
+  grid-template-rows: auto auto;
   padding: 20px;
-  font-size: 18px;
-  font-family: 'Roboto Slab', serif;
-  max-width: 756px;
 }
 
-.add-task-input {
+.table-footer,
+.table-row {
+  display: grid;
+  grid-template-columns: 50px auto 50px;
+}
+
+.table-footer {
+  background: #fafafa;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.table-footer-status-container,
+.table-footer-text-container,
+.table-footer-delete-container,
+.table-row-status-container,
+.table-row-text-container,
+.table-row-delete-container {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  min-height: 50px;
+}
+
+.table-footer-status-chb {
+  transform: scale(1.5);
+}
+
+.table-row-status-chb {
+  transform: scale(1.5);
+  cursor: pointer;
+}
+
+.table-footer-text-container,
+.table-row-text-container {
+  justify-content: start;
+  padding-left: 20px;
+  font-weight: 600;
+}
+
+.table-row-text-container {
+  cursor: pointer;
+}
+
+.table-row-text-container {
+  font-weight: 400;
+}
+
+.table-footer-delete-img,
+.table-row-delete-img {
+  width: 20px;
+}
+
+.table-footer-delete-img {
+  opacity: 50%;
+}
+
+.table-row-delete-img {
+  cursor: pointer;
+}
+
+.table-row-text-container:hover {
+  font-weight: 600;
+}
+
+.table-row-delete-img:hover {
+  filter: brightness(120%);
+}
+
+.table-row {
+  border-top: 1px solid #d5dddf;
+}
+
+.add-task-btn-container {
   width: 100%;
+  padding: 0 20px;
 }
 
-.text-change-task {
-  text-align: center;
-  font-family: 'Roboto Slab', serif;
-  font-size: 30px;
+.add-task-btn {
+  width: 300px;
+  margin-top: 10px;
+  padding: 12px;
+  border: 0;
+  border-radius: 5px;
+  background: #ffdd2d;
+  font-size: 16px;
+  cursor: pointer;
+  outline: none;
 }
 
-.button-is-done {
-  transform: scale(2);
-  opacity: 0.9;
+.add-task-btn:hover {
+  background: #ffcd33;
 }

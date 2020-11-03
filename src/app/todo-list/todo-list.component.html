@@ -1,117 +1,93 @@
-<link
-  href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&display=swap"
-  rel="stylesheet"
-/>
-<link
-  href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap"
-  rel="stylesheet"
-/>
-
-<div class="page">
-  <nav class="navigation-bar">
+<div class="main-page">
+  <nav class="navbar">
     <app-navigation-bar></app-navigation-bar>
   </nav>
-  <div>
-    <header>To Do List</header>
-  </div>
-  <div id="main">
-    <div></div>
-    <div id="column-1">
-      <div id="todo-table-box">
-        <table id="todo-table">
-          <thead>
-            <tr>
-              <th class="id">#</th>
-              <th class="text">Задача</th>
-              <th class="is-done">Статус</th>
-              <th class="trash-img-title">
-                <img
-                  class="trash-img"
-                  src="https://raw.githubusercontent.com/b4lesh/grse-academy/master/src/app/todo-list/images/trash.png"
-                  alt="trash"
-                />
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let task of todoList; index as i">
-              <td class="id" (click)="displayChangeTaskContainer(i)">
-                {{ i + 1 }}
-              </td>
-              <td class="text" (click)="displayChangeTaskContainer(i)">
-                {{ task.text }}
-              </td>
-              <td class="is-done">
-                <label>
-                  <input
-                    class="button-is-done"
-                    type="checkbox"
-                    [checked]="task.isDone"
-                    (click)="changeIsDoneTask(i)"
-                  />
-                </label>
-              </td>
-              <td class="td-delete">
-                <img
-                  class="trash-img"
-                  src="https://raw.githubusercontent.com/b4lesh/grse-academy/master/src/app/todo-list/images/trash.png"
-                  alt="trash"
-                  (click)="deleteTask(i)"
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="add-task-button-container">
-        <button class="button-add" (click)="displayAddTaskContainer()">
-          + Добавить задачу
-        </button>
-      </div>
-
-      <div class="add-task-container" [hidden]="!isDisplayAddTaskContainer">
-        <div class="add-task-container" [formGroup]="addTaskGroup">
+  <div class="body">
+    <div class="table">
+      <div class="table-footer">
+        <div class="table-footer-status-container">
           <label>
             <input
-              class="add-task-input"
-              type="text"
-              placeholder="Текст задачи"
-              formControlName="inputText"
-              (keyup.enter)="addTask()"
+              class="table-footer-status-chb"
+              type="checkbox"
+              [disabled]="true"
             />
           </label>
         </div>
-        <div class="save-task-button-container">
-          <button
-            class="button-save"
-            (click)="addTask()"
-            [disabled]="!addTaskGroup.valid"
-          >
-            Добавить
-          </button>
-        </div>
+        <div class="table-footer-text-container">Текст</div>
+        <div class="table-footer-delete-container"></div>
       </div>
-      <div [hidden]="!isDisplayChangeTaskContainer">
-        <p class="text-change-task">~ Изменить задачу</p>
-        <div class="add-task-container" [formGroup]="changeTaskGroup">
+      <div class="table-row" *ngFor="let task of todoList; index as i">
+        <div class="table-row-status-container">
           <label>
             <input
-              class="add-task-input"
-              type="text"
-              placeholder="Новый текст задачи"
-              formControlName="inputText"
-              (keyup.enter)="changeTextTask()"
+              class="table-row-status-chb"
+              type="checkbox"
+              [checked]="task.isDone"
+              (click)="changeIsDoneTask(i)"
             />
           </label>
         </div>
-        <div class="save-task-button-container">
-          <button class="button-save" (click)="changeTextTask()">
-            Изменить
-          </button>
+        <div
+          class="table-row-text-container"
+          (click)="displayChangeTaskContainer(i)"
+        >
+          {{ task.text }}
+        </div>
+        <div class="table-row-delete-container">
+          <img
+            class="table-row-delete-img"
+            src="https://www.flaticon.com/svg/static/icons/svg/1828/1828843.svg"
+            alt="Удалить"
+            (click)="deleteTask(i)"
+          />
         </div>
       </div>
     </div>
-    <div></div>
+    <div class="add-task-btn-container">
+      <button class="add-task-btn" (click)="displayAddTaskContainer()">
+        + Добавить задачу
+      </button>
+    </div>
+
+    <div class="add-task-container" [hidden]="!isDisplayAddTaskContainer">
+      <div class="add-task-container" [formGroup]="addTaskGroup">
+        <label>
+          <input
+            class="add-task-input"
+            type="text"
+            placeholder="Текст задачи"
+            formControlName="inputText"
+            (keyup.enter)="addTask()"
+          />
+        </label>
+      </div>
+      <div class="save-task-button-container">
+        <button
+          class="button-save"
+          (click)="addTask()"
+          [disabled]="!addTaskGroup.valid"
+        >
+          Добавить
+        </button>
+      </div>
+    </div>
+    <div [hidden]="!isDisplayChangeTaskContainer">
+      <p class="text-change-task">~ Изменить задачу</p>
+      <div class="add-task-container" [formGroup]="changeTaskGroup">
+        <label>
+          <input
+            class="add-task-input"
+            type="text"
+            placeholder="Новый текст задачи"
+            formControlName="inputText"
+            (keyup.enter)="changeTextTask()"
+          />
+        </label>
+      </div>
+      <div class="save-task-button-container">
+        <button class="button-save" (click)="changeTextTask()">Изменить</button>
+      </div>
+    </div>
   </div>
 </div>
