@@ -3,7 +3,10 @@
     <app-navigation-bar></app-navigation-bar>
   </div>
   <div class="body">
-    <h1>Это главная страница</h1>
+    <h1 *ngIf="!currentUser; else hello">Это главная страница</h1>
+    <ng-template #hello
+      ><h1>Привет, {{ currentUser }}</h1></ng-template
+    >
     <p>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi atque
       consequuntur cupiditate eius fuga ipsum nisi optio, provident rerum
