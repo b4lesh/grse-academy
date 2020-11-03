@@ -19,7 +19,7 @@
 .table {
   display: grid;
   grid-template-rows: auto auto;
-  padding: 20px;
+  padding: 20px 0;
 }
 
 .table-footer,
@@ -97,7 +97,6 @@
 
 .add-task-btn-container {
   width: 100%;
-  padding: 0 20px;
 }
 
 .add-task-btn {
