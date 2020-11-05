@@ -12,84 +12,85 @@ import { ITask } from '../modules/itask';
 export class TodoListComponent implements OnInit {
   dataValue: Array<any>;
   todoList: Array<ITask> = [];
+
+  addChangeTaskGroup: FormGroup;
   inputNumber: number;
-  inputIsDone: boolean;
-  isDisplayAddTaskContainer = false;
-  isDisplayChangeTaskContainer = false;
-  addTaskGroup: FormGroup;
-  changeTaskGroup: FormGroup;
+  isUnhideAddChangeTaskContainer = false;
+  btnInputName: string;
+  action: 'add' | 'change' = null;
 
   constructor(private http: HttpClient, private fb: FormBuilder) {
-    this.getData();
-
-    setTimeout(
-      () =>
-        this.dataValue.forEach((value, i) =>
-          this.todoList.push({
-            id: i,
-            text: value.title,
-            isDone: value.completed,
-          })
-        ),
-      1000
-    );
-
-    setTimeout(() => this.todoList.splice(10, 190), 1200);
+    // this.getData();
+    //
+    // setTimeout(
+    //   () =>
+    //     this.dataValue.forEach((value, i) =>
+    //       this.todoList.push({
+    //         id: i,
+    //         text: value.title,
+    //         isDone: value.completed,
+    //       })
+    //     ),
+    //   1000
+    // );
+    //
+    // setTimeout(() => this.todoList.splice(10, 190), 1200);
   }
 
   ngOnInit(): void {
-    this.addTaskGroup = this.fb.group({
-      inputText: ['', Validators.required],
-    });
-
-    this.changeTaskGroup = this.fb.group({
-      inputText: '',
+    this.addChangeTaskGroup = this.fb.group({
+      taskText: ['', Validators.required],
     });
   }
 
-  getData(): void {
-    this.http
-      .get<any>('https://jsonplaceholder.typicode.com/todos')
-      .subscribe((data) => (this.dataValue = Object.values(data)));
-  }
+  // getData(): void {
+  //   this.http
+  //     .get<any>('https://jsonplaceholder.typicode.com/todos')
+  //     .subscribe((data) => (this.dataValue = Object.values(data)));
+  // }
 
-  displayAddTaskContainer(): void {
-    this.isDisplayAddTaskContainer = !this.isDisplayAddTaskContainer;
-    this.isDisplayChangeTaskContainer = false;
-  }
-
-  displayChangeTaskContainer(inputNumber): void {
-    this.isDisplayChangeTaskContainer = true;
-    this.inputNumber = inputNumber;
-    this.isDisplayAddTaskContainer = false;
-    this.changeTaskGroup.setValue({
-      inputText: this.todoList[inputNumber].text,
-    });
-  }
-
-  addTask(): void {
-    const inputText = this.addTaskGroup.value.inputText;
-    const inputIsDone = false;
-    let inputId: number;
-    if (this.todoList.length) {
-      const lastId = this.todoList[this.todoList.length - 1].id;
-      inputId = lastId + 1;
+  displayInputTaskContainer(action: 'add' | 'change', index?: number): void {
+    this.isUnhideAddChangeTaskContainer = true;
+    if (action === 'add') {
+      this.action = 'add';
+      this.btnInputName = 'Добавить';
     } else {
-      inputId = 0;
+      this.action = 'change';
+      this.btnInputName = 'Сохранить';
+      this.inputNumber = index;
+      this.addChangeTaskGroup.patchValue({
+        taskText: this.todoList[index].text,
+      });
+    }
+  }
+
+  addChangeTextTask(): void {
+    if (this.action === 'add') {
+      const taskText = this.addChangeTaskGroup.value.taskText;
+      const inputIsDone = false;
+      let inputId: number;
+      if (this.todoList.length) {
+        const lastId = this.todoList[this.todoList.length - 1].id;
+        inputId = lastId + 1;
+      } else {
+        inputId = 0;
+      }
+      this.todoList.push({ id: inputId, text: taskText, isDone: inputIsDone });
+      this.addChangeTaskGroup.patchValue({ taskText: '' });
+    } else if (this.action === 'change') {
+      // TODO: объявлять конкретно change или можно просто else
+      const i = this.inputNumber;
+      console.log();
+      this.todoList[i].text = this.addChangeTaskGroup.value.taskText;
+
+      this.addChangeTaskGroup.patchValue({ taskText: '' });
     }
 
-    this.todoList.push({ id: inputId, text: inputText, isDone: inputIsDone });
-
-    this.addTaskGroup.setValue({ inputText: '' }); // Это норма?
-    this.isDisplayAddTaskContainer = false;
+    this.isUnhideAddChangeTaskContainer = false;
   }
 
-  changeTextTask(): void {
-    const i = this.inputNumber;
-    this.todoList[i].text = this.changeTaskGroup.value.inputText;
-
-    this.changeTaskGroup.setValue({ inputText: '' }); // Это норма?
-    this.isDisplayChangeTaskContainer = false;
+  cancelAddChangeTask(): void {
+    this.isUnhideAddChangeTaskContainer = false;
   }
 
   changeIsDoneTask(inputNumber): void {
@@ -99,8 +100,6 @@ export class TodoListComponent implements OnInit {
 
   deleteTask(inputNumber): void {
     this.todoList.splice(inputNumber, 1);
-    // this.inputText = null;
-    this.isDisplayAddTaskContainer = false;
-    this.isDisplayChangeTaskContainer = false;
+    this.isUnhideAddChangeTaskContainer = false;
   }
 }

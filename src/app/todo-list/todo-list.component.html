@@ -30,7 +30,7 @@
         </div>
         <div
           class="table-row-text-container"
-          (click)="displayChangeTaskContainer(i)"
+          (click)="displayInputTaskContainer('change', i)"
         >
           {{ task.text }}
         </div>
@@ -44,49 +44,38 @@
         </div>
       </div>
     </div>
-    <div class="add-task-btn-container">
-      <button class="add-task-btn" (click)="displayAddTaskContainer()">
-        + Добавить задачу
-      </button>
-    </div>
-
-    <div class="add-task-container" [hidden]="!isDisplayAddTaskContainer">
-      <div class="add-task-container" [formGroup]="addTaskGroup">
-        <label>
-          <input
-            class="add-task-input"
-            type="text"
-            placeholder="Текст задачи"
-            formControlName="inputText"
-            (keyup.enter)="addTask()"
-          />
-        </label>
-      </div>
-      <div class="save-task-button-container">
+    <div class="add-change-task-container">
+      <div class="display-form-btn-container">
         <button
-          class="button-save"
-          (click)="addTask()"
-          [disabled]="!addTaskGroup.valid"
+          class="btn-unhide-form"
+          (click)="displayInputTaskContainer('add')"
+          *ngIf="!isUnhideAddChangeTaskContainer"
         >
-          Добавить
+          Добавить задачу
         </button>
       </div>
-    </div>
-    <div [hidden]="!isDisplayChangeTaskContainer">
-      <p class="text-change-task">~ Изменить задачу</p>
-      <div class="add-task-container" [formGroup]="changeTaskGroup">
-        <label>
-          <input
-            class="add-task-input"
-            type="text"
-            placeholder="Новый текст задачи"
-            formControlName="inputText"
-            (keyup.enter)="changeTextTask()"
-          />
-        </label>
-      </div>
-      <div class="save-task-button-container">
-        <button class="button-save" (click)="changeTextTask()">Изменить</button>
+      <div class="input-form-container" *ngIf="isUnhideAddChangeTaskContainer">
+        <form class="input-form" [formGroup]="addChangeTaskGroup">
+          <label>
+            <input
+              class="input"
+              type="text"
+              placeholder="Текст задачи"
+              formControlName="taskText"
+              (keyup.enter)="addChangeTextTask()"
+            />
+          </label>
+        </form>
+        <button class="btn-cancel" (click)="cancelAddChangeTask()">
+          Отмена
+        </button>
+        <button
+          class="btn-change"
+          (click)="addChangeTextTask()"
+          [disabled]="!addChangeTaskGroup.valid"
+        >
+          {{ btnInputName }}
+        </button>
       </div>
     </div>
   </div>

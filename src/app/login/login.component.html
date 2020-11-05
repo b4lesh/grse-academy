@@ -3,7 +3,7 @@
     <app-navigation-bar></app-navigation-bar>
   </div>
   <div class="body">
-    <div class="login-form" [formGroup]="loginForm">
+    <form class="login-form" [formGroup]="loginForm">
       <h1>Вход</h1>
       <label>
         <input
@@ -28,6 +28,6 @@
       <p class="login-error-text" *ngIf="loginErrorStatus">
         Логин или пароль неверный
       </p>
-    </div>
+    </form>
   </div>
 </div>
