@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { User } from './modules/user';
+// import { User } from './modules/user';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +8,10 @@ import { User } from './modules/user';
 })
 export class AppComponent implements OnInit, OnDestroy {
   constructor() {
-    const users: Array<User> = [
-      { id: 1, username: 'George', password: 'Qwerty12' },
-    ];
-    localStorage.setItem('user', JSON.stringify(users));
+    // const users: Array<User> = [
+    //   { id: 1, username: 'George', password: 'Qwerty12' },
+    // ];
+    // localStorage.setItem('user', JSON.stringify(users));
   }
 
   ngOnInit(): void {}

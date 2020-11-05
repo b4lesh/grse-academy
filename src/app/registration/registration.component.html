@@ -3,6 +3,43 @@
     <app-navigation-bar></app-navigation-bar>
   </div>
   <div class="body">
-    <form class="login-form"></form>
+    <form class="registration-form" [formGroup]="registrationForm">
+      <h1>Регистрация</h1>
+      <label>
+        <input
+          class="input-form"
+          type="text"
+          placeholder="Логин"
+          formControlName="username"
+        />
+      </label>
+      <label>
+        <input
+          class="input-form"
+          type="password"
+          placeholder="Пароль"
+          formControlName="password1"
+        />
+      </label>
+      <label>
+        <input
+          class="input-form"
+          type="password"
+          placeholder="Повторите пароль"
+          formControlName="password2"
+          (keyup.enter)="registration()"
+        />
+      </label>
+      <button
+        class="btn"
+        (click)="registration()"
+        [disabled]="!registrationForm.valid"
+      >
+        Зарегестрироваться
+      </button>
+      <p class="login-error-text" *ngIf="registrationErrorStatusLogin">
+        Такой пользователь уже существует
+      </p>
+    </form>
   </div>
 </div>

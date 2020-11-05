@@ -31,14 +31,16 @@ export class LoginComponent implements OnInit {
     const password = this.loginForm.value.password;
 
     let isLogin = false;
-    for (const user of users) {
-      if (
-        user.username.toLowerCase() === username &&
-        user.password === password
-      ) {
-        isLogin = true;
-        localStorage.setItem('currentUser', user.username);
-        location.href = '/';
+    if (users) {
+      for (const user of users) {
+        if (
+          user.username.toLowerCase() === username &&
+          user.password === password
+        ) {
+          isLogin = true;
+          localStorage.setItem('currentUser', user.username);
+          location.href = '/';
+        }
       }
     }
     this.loginErrorStatus = !isLogin;
