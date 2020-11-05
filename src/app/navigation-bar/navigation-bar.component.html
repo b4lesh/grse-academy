@@ -21,7 +21,13 @@
       <button *ngIf="!status" class="navbar-btn-login" routerLink="/login">
         Войти
       </button>
-      <button *ngIf="!status" class="navbar-btn-register">Регистрация</button>
+      <button
+        *ngIf="!status"
+        class="navbar-btn-register"
+        routerLink="/registration"
+      >
+        Регистрация
+      </button>
       <button *ngIf="status" class="navbar-btn-logout" (click)="logout()">
         Выйти
       </button>
