@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../modules/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -11,7 +12,7 @@ export class RegistrationComponent implements OnInit {
   registrationForm: FormGroup;
   registrationErrorStatusLogin = false;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
     this.registrationForm = this.fb.group({
@@ -48,6 +49,6 @@ export class RegistrationComponent implements OnInit {
     });
 
     localStorage.setItem('user', JSON.stringify(usersArray));
-    location.href = '/login';
+    setTimeout(() => this.router.navigate(['/login']), 200);
   }
 }

@@ -14,6 +14,6 @@ export class NavigationBarComponent implements OnInit {
 
   logout(): void {
     localStorage.removeItem('currentUser');
-    location.href = '/';
+    location.href = '/'; // TODO: Передалть в будущем
   }
 }

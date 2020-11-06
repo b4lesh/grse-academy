@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../modules/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,9 +13,9 @@ export class LoginComponent implements OnInit {
   loginErrorStatus = false;
   currentUser = localStorage.getItem('currentUser');
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router) {
     if (this.currentUser) {
-      location.href = '/todo-list';
+      setTimeout(() => this.router.navigate(['/todo-list']), 200);
     }
   }
 
@@ -39,7 +40,7 @@ export class LoginComponent implements OnInit {
         ) {
           isLogin = true;
           localStorage.setItem('currentUser', user.username);
-          location.href = '/';
+          setTimeout(() => this.router.navigate(['/']), 200);
         }
       }
     }
