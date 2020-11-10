@@ -1,6 +1,6 @@
 <app-navigation-bar></app-navigation-bar>
 
-<section>
+<main>
   <div class="container-xxl">
     <h1 *ngIf="!currentUser; else hello">Это главная страница</h1>
     <ng-template #hello>
@@ -21,4 +21,4 @@
       voluptatibus.
     </p>
   </div>
-</section>
+</main>
