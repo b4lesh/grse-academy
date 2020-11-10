@@ -1,12 +1,11 @@
-<div class="main-page">
-  <div class="navbar">
-    <app-navigation-bar></app-navigation-bar>
-  </div>
-  <div class="body">
+<app-navigation-bar></app-navigation-bar>
+
+<section>
+  <div class="container-xxl">
     <h1 *ngIf="!currentUser; else hello">Это главная страница</h1>
-    <ng-template #hello
-      ><h1>Привет, {{ currentUser }}</h1></ng-template
-    >
+    <ng-template #hello>
+      <h1>Привет, {{ currentUser }}</h1>
+    </ng-template>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi atque
       consequuntur cupiditate eius fuga ipsum nisi optio, provident rerum
@@ -22,4 +21,4 @@
       voluptatibus.
     </p>
   </div>
-</div>
+</section>

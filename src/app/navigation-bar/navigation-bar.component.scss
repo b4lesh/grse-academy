@@ -1,50 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
-
-.navbar-container {
-  display: grid;
-  height: 48px;
-  background: #f5f5f6;
+.navbar {
   border-bottom: 1px solid #d5dddf;
 }
 
-.navbar-main {
-  width: 1100px;
-  margin: 0 20px;
-  display: grid;
-  justify-self: center;
-  grid-template-columns: 1fr 1fr;
+.bg-light {
+  background-color: #f5f5f6 !important;
 }
 
-.navbar-left {
-  justify-self: start;
-  align-self: center;
+.container-xxl {
+  padding: 0 24px;
 }
 
-.navbar-right {
-  justify-self: end;
-  align-self: center;
-}
-
-.navbar-link {
-  margin-right: 1rem;
-  font-size: 16px;
+.nav-link {
   font-weight: 600;
-  color: #909090;
-  text-decoration: none;
+  color: #909090 !important;
 }
 
-.navbar-link-active {
-  color: #464646;
-}
-
-.navbar-link:hover {
-  color: #464646;
+.active,
+.nav-link:hover {
+  color: #464646 !important;
 }
 
 .navbar-btn-login,
 .navbar-btn-register,
 .navbar-btn-logout {
-  margin-left: 0.6rem;
   padding: 5px 10px;
   color: #3e3e3e;
   font-weight: 600;
@@ -57,6 +35,11 @@
 
 .navbar-btn-register {
   background: #ffdd2d;
+}
+
+.navbar-btn-login,
+.navbar-btn-logout {
+  margin-right: 0.6rem;
 }
 
 .navbar-btn-login:hover,
