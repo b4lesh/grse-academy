@@ -12,14 +12,22 @@ export class RegistrationComponent implements OnInit {
   registrationForm: FormGroup;
   registrationErrorStatusLogin = false;
 
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(private formBuilder: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
-    this.registrationForm = this.fb.group({
-      username: ['', Validators.required],
-      password1: ['', Validators.required],
-      password2: ['', Validators.required],
-    });
+    this.registrationForm = this.formBuilder.group(
+      {
+        username: ['', Validators.required],
+        password1: ['', Validators.required],
+        password2: ['', [Validators.required]],
+      },
+      {
+        validators: (group: FormGroup) =>
+          group.value.password1 === group.value.password2
+            ? null
+            : { mismatch: true },
+      }
+    );
   }
 
   registration(): void {
@@ -49,6 +57,6 @@ export class RegistrationComponent implements OnInit {
     });
 
     localStorage.setItem('user', JSON.stringify(usersArray));
-    setTimeout(() => this.router.navigate(['/login']), 200);
+    setTimeout(() => this.router.navigate(['/login']), 250);
   }
 }
