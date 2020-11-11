@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
         ) {
           isLogin = true;
           localStorage.setItem('currentUser', user.username);
-          setTimeout(() => this.router.navigate(['/']), 200);
+          setTimeout(() => this.router.navigate(['/']), 250);
         }
       }
     }
