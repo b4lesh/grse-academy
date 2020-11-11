@@ -16,8 +16,16 @@
         class="form-control"
         placeholder="Логин"
         formControlName="username"
-        autofocus
       />
+      <p
+        *ngIf="
+          registrationForm.controls.username.invalid &&
+          registrationForm.controls.username.touched
+        "
+        class="error-message mb-2"
+      >
+        Логин меньше 3 символов
+      </p>
       <label for="inputPassword" class="visually-hidden">Пароль</label>
       <input
         type="password"
@@ -26,17 +34,41 @@
         placeholder="Пароль"
         formControlName="password1"
       />
+      <p
+        *ngIf="
+          registrationForm.controls.password1.invalid &&
+          registrationForm.controls.password1.touched
+        "
+        class="error-message mb-2"
+      >
+        Пароль меньше 6 символов
+      </p>
       <label for="repeatPassword" class="visually-hidden"
-        >Повторный пароль</label
+        >Подтвердите пароль</label
       >
       <input
         type="password"
         id="repeatPassword"
         class="form-control"
-        placeholder="Повторите пароль"
+        [ngClass]="{
+          'repeat-valid':
+            !registrationForm.errors &&
+            registrationForm.controls.password2.dirty,
+          'repeat-invalid':
+            registrationForm.errors && registrationForm.controls.password2.dirty
+        }"
+        placeholder="Подтвердите пароль"
         formControlName="password2"
         (keyup.enter)="registration()"
       />
+      <p
+        *ngIf="
+          registrationForm.errors && registrationForm.controls.password2.touched
+        "
+        class="error-message mb-2"
+      >
+        Пароли не совпадают
+      </p>
       <button
         class="btn btn-lg btn-primary btn-block mt-4"
         (click)="registration()"
@@ -44,7 +76,7 @@
       >
         Зарегестрироваться
       </button>
-      <p class="mt-3 mb-0 error" *ngIf="registrationErrorStatusLogin">
+      <p class="mt-3 mb-0 error-message" *ngIf="registrationErrorStatusLogin">
         Такой пользователь уже существует
       </p>
     </form>

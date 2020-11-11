@@ -17,17 +17,21 @@ export class RegistrationComponent implements OnInit {
   ngOnInit(): void {
     this.registrationForm = this.formBuilder.group(
       {
-        username: ['', Validators.required],
-        password1: ['', Validators.required],
+        username: ['', [Validators.required, Validators.minLength(3)]],
+        password1: ['', [Validators.required, Validators.minLength(6)]],
         password2: ['', [Validators.required]],
       },
       {
         validators: (group: FormGroup) =>
           group.value.password1 === group.value.password2
             ? null
-            : { mismatch: true },
+            : { repeat: true },
       }
     );
+  }
+
+  log(): void {
+    console.log(this.registrationForm);
   }
 
   registration(): void {
@@ -38,7 +42,6 @@ export class RegistrationComponent implements OnInit {
     }
     const newUsername = this.registrationForm.value.username;
     const newPassword1 = this.registrationForm.value.password1;
-    // const newPassword2 = this.registrationForm.value.password2;
     const newId = usersArray.length
       ? usersArray[usersArray.length - 1].id + 1
       : 1;
