@@ -1,80 +1,83 @@
 <div class="d-flex flex-column h-100">
   <app-navigation-bar></app-navigation-bar>
   <main class="container-xxl">
-    <table class="table table-striped">
-      <tr class="table-footer">
-        <th class="table-footer-status-container">
-          <label>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th class="status position-relative">
+            <label for="inputCheckboxHead" class="visually-hidden"></label>
             <input
-              class="table-footer-status-chb"
               type="checkbox"
+              id="inputCheckboxHead"
+              class="form-check-input position-absolute top-50 left-50 translate-middle"
               [disabled]="true"
             />
-          </label>
-        </th>
-        <th class="table-footer-text-container">Текст</th>
-        <th class="table-footer-delete-container"></th>
-      </tr>
-      <tr class="table-row" *ngFor="let task of todoList; index as i">
-        <td class="table-row-status-container">
-          <label>
+          </th>
+          <th class="text">Текст</th>
+          <th class="delete"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of todoList; index as i">
+          <td class="status position-relative">
+            <label
+              for="inputCheckboxBody{{ i }}"
+              class="visually-hidden"
+            ></label>
             <input
-              class="table-row-status-chb"
               type="checkbox"
+              id="inputCheckboxBody{{ i }}"
+              class="form-check-input position-absolute top-50 left-50 translate-middle"
               [checked]="task.isDone"
               (click)="changeIsDoneTask(i)"
             />
-          </label>
-        </td>
-        <td
-          class="table-row-text-container"
-          (click)="displayInputTaskContainer('change', i)"
-        >
-          {{ task.text }}
-        </td>
-        <td class="table-row-delete-container">
-          <img
-            class="table-row-delete-img"
-            src="https://www.flaticon.com/svg/static/icons/svg/1828/1828843.svg"
-            alt="Удалить"
-            (click)="deleteTask(i)"
-          />
-        </td>
-      </tr>
+          </td>
+          <td class="text" (click)="displayInputTaskContainer('change', i)">
+            {{ task.text }}
+          </td>
+          <td class="delete position-relative">
+            <img
+              class="position-absolute top-50 left-50 translate-middle"
+              src="https://www.flaticon.com/svg/static/icons/svg/1828/1828843.svg"
+              alt="Удалить"
+              (click)="deleteTask(i)"
+            />
+          </td>
+        </tr>
+      </tbody>
     </table>
-    <div class="add-change-task-container">
-      <div class="display-form-btn-container">
-        <button
-          class="btn-unhide-form"
-          (click)="displayInputTaskContainer('add')"
-          *ngIf="!isUnhideAddChangeTaskContainer"
-        >
-          Добавить задачу
-        </button>
-      </div>
-      <div class="input-form-container" *ngIf="isUnhideAddChangeTaskContainer">
-        <form class="input-form" [formGroup]="addChangeTaskGroup">
-          <label></label>
-          <input
-            class="input"
-            type="text"
-            placeholder="Текст задачи"
-            formControlName="taskText"
-            (keyup.enter)="addChangeTextTask()"
-          />
-        </form>
-        <button class="btn-cancel" (click)="cancelAddChangeTask()">
-          Отмена
-        </button>
-        <button
-          class="btn-change"
-          (click)="addChangeTextTask()"
-          [disabled]="!addChangeTaskGroup.valid"
-        >
-          {{ btnInputName }}
-        </button>
-      </div>
-    </div>
+    <section>
+      <button
+        class="btn btn-secondary"
+        (click)="displayInputTaskContainer('add')"
+        *ngIf="!isUnhideAddChangeTaskContainer"
+      >
+        Добавить задачу
+      </button>
+    </section>
+    <section *ngIf="isUnhideAddChangeTaskContainer">
+      <form class="input-form" [formGroup]="addChangeTaskGroup">
+        <label for="inputText" class="visually-hidden"></label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputText"
+          placeholder="Текст задачи"
+          formControlName="taskText"
+          (keyup.enter)="addChangeTextTask()"
+        />
+      </form>
+      <button class="btn btn-secondary" (click)="cancelAddChangeTask()">
+        Отмена
+      </button>
+      <button
+        class="btn btn-primary"
+        (click)="addChangeTextTask()"
+        [disabled]="!addChangeTaskGroup.valid"
+      >
+        {{ btnInputName }}
+      </button>
+    </section>
   </main>
   <app-footer class="mt-auto"></app-footer>
 </div>
