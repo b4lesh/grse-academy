@@ -1,11 +1,9 @@
-<div class="main-page">
-  <nav class="navbar">
-    <app-navigation-bar></app-navigation-bar>
-  </nav>
-  <div class="body">
-    <div class="table">
-      <div class="table-footer">
-        <div class="table-footer-status-container">
+<div class="d-flex flex-column h-100">
+  <app-navigation-bar></app-navigation-bar>
+  <main class="container-xxl">
+    <table class="table table-striped">
+      <tr class="table-footer">
+        <th class="table-footer-status-container">
           <label>
             <input
               class="table-footer-status-chb"
@@ -13,12 +11,12 @@
               [disabled]="true"
             />
           </label>
-        </div>
-        <div class="table-footer-text-container">Текст</div>
-        <div class="table-footer-delete-container"></div>
-      </div>
-      <div class="table-row" *ngFor="let task of todoList; index as i">
-        <div class="table-row-status-container">
+        </th>
+        <th class="table-footer-text-container">Текст</th>
+        <th class="table-footer-delete-container"></th>
+      </tr>
+      <tr class="table-row" *ngFor="let task of todoList; index as i">
+        <td class="table-row-status-container">
           <label>
             <input
               class="table-row-status-chb"
@@ -27,23 +25,23 @@
               (click)="changeIsDoneTask(i)"
             />
           </label>
-        </div>
-        <div
+        </td>
+        <td
           class="table-row-text-container"
           (click)="displayInputTaskContainer('change', i)"
         >
           {{ task.text }}
-        </div>
-        <div class="table-row-delete-container">
+        </td>
+        <td class="table-row-delete-container">
           <img
             class="table-row-delete-img"
             src="https://www.flaticon.com/svg/static/icons/svg/1828/1828843.svg"
             alt="Удалить"
             (click)="deleteTask(i)"
           />
-        </div>
-      </div>
-    </div>
+        </td>
+      </tr>
+    </table>
     <div class="add-change-task-container">
       <div class="display-form-btn-container">
         <button
@@ -56,15 +54,14 @@
       </div>
       <div class="input-form-container" *ngIf="isUnhideAddChangeTaskContainer">
         <form class="input-form" [formGroup]="addChangeTaskGroup">
-          <label>
-            <input
-              class="input"
-              type="text"
-              placeholder="Текст задачи"
-              formControlName="taskText"
-              (keyup.enter)="addChangeTextTask()"
-            />
-          </label>
+          <label></label>
+          <input
+            class="input"
+            type="text"
+            placeholder="Текст задачи"
+            formControlName="taskText"
+            (keyup.enter)="addChangeTextTask()"
+          />
         </form>
         <button class="btn-cancel" (click)="cancelAddChangeTask()">
           Отмена
@@ -78,5 +75,6 @@
         </button>
       </div>
     </div>
-  </div>
+  </main>
+  <app-footer class="mt-auto"></app-footer>
 </div>
