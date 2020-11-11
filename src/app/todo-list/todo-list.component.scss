@@ -4,7 +4,7 @@
 
 .status,
 .delete {
-  width: 41px;
+  width: 48px;
 }
 
 .form-check-input {
@@ -20,6 +20,10 @@
 
 tbody .text {
   cursor: pointer;
+}
+
+tr {
+  height: 48px;
 }
 
 td img {
@@ -52,6 +56,10 @@ td img:hover {
 
 .btn-secondary:hover {
   background-color: #dbdbdb;
+}
+
+.form-control {
+  height: 48px;
 }
 
 .form-control:focus {
