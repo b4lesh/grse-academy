@@ -1,36 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;800&display=swap');
-
-.main-container {
-  display: grid;
-  color: #1c1c1c;
-  width: 100vw;
-  height: 100vh;
+.full-page {
+  background: #f5f5f6;
 }
 
-.error-container {
-  margin-top: 10rem;
-  background: #f7e8e3;
-  width: 500px;
-  height: 300px;
-  border-radius: 1rem;
-  display: grid;
-  justify-self: center;
-  grid-template-rows: 1fr 1fr;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+.not-found {
+  width: 100%;
+  max-width: 300px;
+  padding: 20px;
+  align-self: center;
+  margin-top: 100px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
 }
 
-.error-number {
-  display: flex;
-  font-size: 10rem;
-  font-weight: 800;
-  align-self: flex-end;
-  justify-self: center;
-}
-
-.error-text {
-  display: flex;
-  align-self: flex-start;
-  justify-self: center;
-  font-size: 2rem;
-  font-weight: 300;
+.button:focus {
+  box-shadow: none;
 }
