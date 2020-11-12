@@ -12,9 +12,7 @@ export class RegistrationComponent implements OnInit {
   registrationForm: FormGroup;
   registrationErrorStatusLogin = false;
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {}
-
-  ngOnInit(): void {
+  constructor(private formBuilder: FormBuilder, private router: Router) {
     this.registrationForm = this.formBuilder.group(
       {
         username: ['', [Validators.required, Validators.minLength(3)]],
@@ -30,9 +28,7 @@ export class RegistrationComponent implements OnInit {
     );
   }
 
-  log(): void {
-    console.log(this.registrationForm);
-  }
+  ngOnInit(): void {}
 
   registration(): void {
     // TODO:можно ли сократить запись?
