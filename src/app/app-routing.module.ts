@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -16,7 +15,11 @@ const routes: Routes = [
       ),
     canActivate: [AuthGuard],
   },
-  { path: 'login', component: LoginComponent },
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('./login/login.module').then((module) => module.LoginModule),
+  },
   { path: 'registration', component: RegistrationComponent },
   { path: '**', component: NotFoundComponent },
 ];
