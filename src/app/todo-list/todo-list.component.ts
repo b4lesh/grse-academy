@@ -11,7 +11,15 @@ import { ITask } from '../modules/itask';
 })
 export class TodoListComponent implements OnInit {
   dataValue: Array<any>;
-  todoList: Array<ITask> = [];
+  todoList: Array<ITask> = [
+    { id: 1, text: 'Отказаться от Газпромбанка', isDone: false },
+    { id: 2, text: 'Отказаться от SkyNet', isDone: false },
+    { id: 3, text: 'Скачать видео и перенести их на внешний ЖД', isDone: true },
+    { id: 4, text: 'Заказать столик в ресторане', isDone: true },
+    { id: 5, text: 'Забрать аттесата из универа', isDone: false },
+    { id: 6, text: 'Поменять фильтр', isDone: false },
+    { id: 7, text: 'Разобраться с книгой рецептов', isDone: true },
+  ];
 
   addChangeTaskGroup: FormGroup;
   inputNumber: number;
