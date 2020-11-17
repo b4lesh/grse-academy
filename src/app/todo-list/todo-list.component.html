@@ -1,24 +1,59 @@
 <div class="d-flex flex-column h-100">
   <app-navigation-bar></app-navigation-bar>
   <main class="container-xxl">
+    <div>
+      <label for="search" class="visually-hidden"></label>
+      <input
+        type="text"
+        id="search"
+        class="form-control"
+        placeholder="Поиск"
+        [(ngModel)]="searchText"
+      />
+    </div>
     <table class="table table-hover">
       <thead>
         <tr>
-          <th class="status position-relative">
-            <label for="inputCheckboxHead" class="visually-hidden"></label>
-            <input
-              type="checkbox"
-              id="inputCheckboxHead"
-              class="form-check-input position-absolute top-50 left-50 translate-middle"
-              [disabled]="true"
+          <th class="status align-middle" (click)="sortTable('isDone')">
+            Статус
+            <img
+              *ngIf="sortOrder === 'isDone' && !sortReverse"
+              src="https://www.flaticon.com/svg/static/icons/svg/481/481058.svg"
+              alt="ascending"
+            />
+            <img
+              *ngIf="sortOrder === 'isDone' && sortReverse"
+              src="https://www.flaticon.com/svg/static/icons/svg/481/481058.svg"
+              alt="ascending"
+              class="descending"
             />
           </th>
-          <th class="text align-middle">Текст</th>
+          <th class="text align-middle" (click)="sortTable('text')">
+            Текст
+            <img
+              *ngIf="sortOrder === 'text' && !sortReverse"
+              src="https://www.flaticon.com/svg/static/icons/svg/481/481058.svg"
+              alt="ascending"
+            />
+            <img
+              *ngIf="sortOrder === 'text' && sortReverse"
+              src="https://www.flaticon.com/svg/static/icons/svg/481/481058.svg"
+              alt="ascending"
+              class="descending"
+            />
+          </th>
           <th class="delete"></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let task of todoList; index as i">
+        <tr
+          *ngFor="
+            let task of todoList
+              | search: searchText
+              | sort: sortOrder:sortReverse;
+            index as i
+          "
+        >
           <td class="status position-relative">
             <label
               for="inputCheckboxBody{{ i }}"

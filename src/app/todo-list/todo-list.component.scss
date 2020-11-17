@@ -1,8 +1,21 @@
 .container-xxl {
-  padding: 0 24px;
+  padding: 24px;
 }
 
-.status,
+.form-control[id='search'] {
+  border-radius: 2rem;
+  margin-left: auto;
+  padding: 0 1rem;
+  height: 1rem;
+  max-width: 200px;
+  width: 100%;
+  font-size: 14px;
+}
+
+.status {
+  width: 78px;
+}
+
 .delete {
   width: 48px;
 }
@@ -18,12 +31,21 @@
   box-shadow: none;
 }
 
-tbody .text {
+.status,
+.text {
   cursor: pointer;
 }
 
 tr {
   height: 48px;
+}
+
+tr th img {
+  width: 8px;
+}
+
+tr th img[class='descending'] {
+  transform: rotate(180deg);
 }
 
 td img {

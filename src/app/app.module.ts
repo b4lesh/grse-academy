@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { FooterComponent } from './footer/footer.component';
+import { TodoListModule } from './todo-list/todo-list.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,13 @@ import { FooterComponent } from './footer/footer.component';
     RegistrationComponent,
     FooterComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    TodoListModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

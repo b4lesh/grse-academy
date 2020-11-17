@@ -21,6 +21,9 @@ export class TodoListComponent implements OnInit {
     { id: 7, text: 'Разобраться с книгой рецептов', isDone: true },
   ];
 
+  searchText = '';
+  sortOrder: 'text' | 'isDone' = null;
+  sortReverse = null;
   addChangeTaskGroup: FormGroup;
   inputNumber: number;
   isUnhideAddChangeTaskContainer = false;
@@ -88,12 +91,10 @@ export class TodoListComponent implements OnInit {
     } else if (this.action === 'change') {
       // TODO: объявлять конкретно change или можно просто else
       const i = this.inputNumber;
-      console.log();
       this.todoList[i].text = this.addChangeTaskGroup.value.taskText;
 
       this.addChangeTaskGroup.patchValue({ taskText: '' });
     }
-
     this.isUnhideAddChangeTaskContainer = false;
   }
 
@@ -109,5 +110,14 @@ export class TodoListComponent implements OnInit {
   deleteTask(inputNumber): void {
     this.todoList.splice(inputNumber, 1);
     this.isUnhideAddChangeTaskContainer = false;
+  }
+
+  sortTable(sortOrder: 'isDone' | 'text'): void {
+    if (this.sortOrder === sortOrder) {
+      this.sortReverse = !this.sortReverse;
+    } else {
+      this.sortOrder = sortOrder;
+      this.sortReverse = false;
+    }
   }
 }
