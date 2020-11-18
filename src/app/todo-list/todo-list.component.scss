@@ -12,6 +12,10 @@
   font-size: 14px;
 }
 
+.form-control[id='search']:focus {
+  border-color: #ffc000;
+}
+
 .status {
   width: 78px;
 }
