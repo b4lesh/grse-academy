@@ -11,7 +11,8 @@ import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { FooterComponent } from './footer/footer.component';
-import { TodoListModule } from './todo-list/todo-list.module';
+import { SearchPipe } from './todo-list/search.pipe';
+import { SortPipe } from './todo-list/sort.pipe';
 
 @NgModule({
   declarations: [
@@ -23,15 +24,10 @@ import { TodoListModule } from './todo-list/todo-list.module';
     NotFoundComponent,
     RegistrationComponent,
     FooterComponent,
+    SearchPipe,
+    SortPipe,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    TodoListModule,
-  ],
-  providers: [],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
