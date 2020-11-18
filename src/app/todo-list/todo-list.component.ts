@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { ITask } from '../modules/itask';
+import { CrudService } from './crud.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -30,7 +31,11 @@ export class TodoListComponent implements OnInit {
   btnInputName: string;
   action: 'add' | 'change' = null;
 
-  constructor(private http: HttpClient, private fb: FormBuilder) {
+  constructor(
+    private http: HttpClient,
+    private fb: FormBuilder,
+    private crudService: CrudService
+  ) {
     // this.getData();
     //
     // setTimeout(
@@ -86,7 +91,17 @@ export class TodoListComponent implements OnInit {
       } else {
         inputId = 0;
       }
-      this.todoList.push({ id: inputId, text: taskText, isDone: inputIsDone });
+      const newTask: ITask = {
+        id: inputId,
+        text: taskText,
+        isDone: inputIsDone,
+      };
+      this.todoList.push(newTask);
+      this.crudService
+        .addTask(newTask)
+        .then((res) => console.log(res))
+        .catch((error) => console.log(error));
+
       this.addChangeTaskGroup.patchValue({ taskText: '' });
     } else if (this.action === 'change') {
       // TODO: объявлять конкретно change или можно просто else
