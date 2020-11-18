@@ -13,6 +13,9 @@ import { RegistrationComponent } from './registration/registration.component';
 import { FooterComponent } from './footer/footer.component';
 import { SearchPipe } from './todo-list/search.pipe';
 import { SortPipe } from './todo-list/sort.pipe';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment.prod';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,14 @@ import { SortPipe } from './todo-list/sort.pipe';
     SearchPipe,
     SortPipe,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
