@@ -50,7 +50,7 @@ export class TodoListComponent implements OnInit, OnDestroy {
       this.todoList2 = data.map((task) => {
         console.log(task);
         return {
-          id: task.payload.doc.data().id,
+          id: task.payload.doc.id,
           text: task.payload.doc.data().text,
           isDone: task.payload.doc.data().isDone,
         };
