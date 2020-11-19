@@ -1,6 +1,5 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
 import { ITask } from '../modules/itask';
 import { CrudService } from './crud.service';
@@ -12,49 +11,36 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./todo-list.component.scss'],
 })
 export class TodoListComponent implements OnInit, OnDestroy {
-  dataValue: Array<any>;
-  todoList: Array<ITask> = [
-    { id: 1, text: 'Отказаться от Газпромбанка', isDone: false },
-    { id: 2, text: 'Отказаться от SkyNet', isDone: false },
-    { id: 3, text: 'Скачать видео и перенести их на внешний ЖД', isDone: true },
-    { id: 4, text: 'Заказать столик в ресторане', isDone: true },
-    { id: 5, text: 'Забрать аттесата из универа', isDone: false },
-    { id: 6, text: 'Поменять фильтр', isDone: false },
-    { id: 7, text: 'Разобраться с книгой рецептов', isDone: true },
-  ];
+  subscription: Subscription; // Подписка для todoList
+  todoList: Array<ITask>; // Полный список задач
 
-  searchText = '';
-  sortOrder: 'text' | 'isDone' = null;
+  searchText = ''; // Поле для поиска задач
+  sortOrder: 'text' | 'isDone' = null; // Принимает какое поле сортировать
+
   sortReverse = null;
-  addChangeTaskGroup: FormGroup;
-  inputNumber: number;
-  isUnhideAddChangeTaskContainer = false;
-  btnInputName: string;
-  action: 'add' | 'change' = null;
 
-  subscription: Subscription;
-  todoList2: Array<ITask>;
+  idTaskChange: string; // ID задачи которую хотим изменить
+  isUnhideAddChangeTaskContainer = false; // Отвечает за отображение секции для записи/редактировании новой задачи
+  addChangeTaskGroup: FormGroup; // Объединяет одно поле ввода или изменения задачи
+  btnInputName: 'Добавить' | 'Сохранить'; // Что отображается на кнопке
+  action: 'add' | 'change' = null; // Какое действие выполнится при нажатии кнопки
 
   constructor(
-    private http: HttpClient,
-    private fb: FormBuilder,
+    private formBuilder: FormBuilder,
     private crudService: CrudService
   ) {
-    this.addChangeTaskGroup = this.fb.group({
+    this.addChangeTaskGroup = this.formBuilder.group({
       taskText: ['', Validators.required],
     });
   }
 
   ngOnInit(): void {
     this.subscription = this.crudService.getAllTasks().subscribe((data) => {
-      this.todoList2 = data.map((task) => {
-        console.log(task);
-        return {
-          id: task.payload.doc.id,
-          text: task.payload.doc.data().text,
-          isDone: task.payload.doc.data().isDone,
-        };
-      });
+      this.todoList = data.map((element) => ({
+        id: element.payload.doc.id,
+        text: element.payload.doc.data().text,
+        isDone: element.payload.doc.data().isDone,
+      }));
     });
   }
 
@@ -64,55 +50,40 @@ export class TodoListComponent implements OnInit, OnDestroy {
     }
   }
 
-  displayInputTaskContainer(action: 'add' | 'change', index?: number): void {
+  displayInputTaskContainer(
+    action: 'add' | 'change',
+    id?: string,
+    originalText?: string
+  ): void {
     this.isUnhideAddChangeTaskContainer = true;
+    this.action = action;
     if (action === 'add') {
-      this.action = 'add';
       this.btnInputName = 'Добавить';
-    } else {
-      this.action = 'change';
+      this.addChangeTaskGroup.patchValue({ taskText: '' });
+    } else if (action === 'change') {
       this.btnInputName = 'Сохранить';
-      this.inputNumber = index;
-      this.addChangeTaskGroup.patchValue({
-        taskText: this.todoList[index].text,
-      });
+      this.idTaskChange = id;
+      this.addChangeTaskGroup.patchValue({ taskText: originalText });
     }
   }
 
   addChangeTextTask(): void {
     if (this.action === 'add') {
-      const taskText = this.addChangeTaskGroup.value.taskText;
-      const inputIsDone = false;
-      let inputId: number;
-      if (this.todoList.length) {
-        const lastId = this.todoList[this.todoList.length - 1].id;
-        inputId = lastId + 1;
-      } else {
-        inputId = 0;
-      }
       const newTask: ITask = {
-        id: inputId,
-        text: taskText,
-        isDone: inputIsDone,
+        text: this.addChangeTaskGroup.value.taskText,
+        isDone: false,
       };
-      this.todoList.push(newTask);
-      this.crudService
-        .addTask(newTask)
-        .then((res) => console.log(res))
-        .catch((error) => console.log(error));
-
-      this.addChangeTaskGroup.patchValue({ taskText: '' });
-    } else if (this.action === 'change') {
-      // TODO: объявлять конкретно change или можно просто else
-      const i = this.inputNumber;
-      this.todoList[i].text = this.addChangeTaskGroup.value.taskText;
-
+      this.crudService.addTask(newTask).catch((error) => console.log(error));
       this.addChangeTaskGroup.patchValue({ taskText: '' });
     }
-    this.isUnhideAddChangeTaskContainer = false;
-  }
-
-  cancelAddChangeTask(): void {
+    // TODO: Сделать изменение задачи
+    // else if (this.action === 'change') {
+    //   // TODO: объявлять конкретно change или можно просто else
+    //   const i = this.inputNumber;
+    //   this.todoList[i].text = this.addChangeTaskGroup.value.taskText;
+    //
+    //   this.addChangeTaskGroup.patchValue({ taskText: '' });
+    // }
     this.isUnhideAddChangeTaskContainer = false;
   }
 
@@ -121,8 +92,8 @@ export class TodoListComponent implements OnInit, OnDestroy {
     this.todoList[inputNumber].isDone = !currentValue;
   }
 
-  deleteTask(inputNumber): void {
-    this.todoList.splice(inputNumber, 1);
+  deleteTask(id): void {
+    this.crudService.deleteTask(id).catch((error) => console.log(error));
     this.isUnhideAddChangeTaskContainer = false;
   }
 

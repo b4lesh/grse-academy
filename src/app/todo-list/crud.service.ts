@@ -12,7 +12,11 @@ export class CrudService {
     return this.angularFirestore.collection('todo-list').snapshotChanges();
   }
 
-  addTask(task): any {
+  addTask(task): Promise<any> {
     return this.angularFirestore.collection('todo-list').add(task);
+  }
+
+  deleteTask(id: string): Promise<any> {
+    return this.angularFirestore.doc('todo-list/' + id).delete();
   }
 }
