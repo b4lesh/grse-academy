@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { ITask } from '../modules/itask';
 
 @Injectable({
   providedIn: 'root',
@@ -12,11 +13,15 @@ export class CrudService {
     return this.angularFirestore.collection('todo-list').snapshotChanges();
   }
 
-  addTask(task): Promise<any> {
+  addTask(task: ITask): Promise<any> {
     return this.angularFirestore.collection('todo-list').add(task);
   }
 
+  updateTask(id: string, task: any): Promise<any> {
+    return this.angularFirestore.collection('todo-list').doc(id).update(task);
+  }
+
   deleteTask(id: string): Promise<any> {
-    return this.angularFirestore.doc('todo-list/' + id).delete();
+    return this.angularFirestore.collection('todo-list').doc(id).delete();
   }
 }

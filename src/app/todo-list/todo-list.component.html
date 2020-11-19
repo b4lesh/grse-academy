@@ -63,7 +63,7 @@
               id="inputCheckboxBody{{ task.id }}"
               class="form-check-input position-absolute top-50 left-50 translate-middle"
               [checked]="task.isDone"
-              (click)="changeIsDoneTask(task.id)"
+              (click)="changeIsDoneTask(task.id, task.isDone)"
             />
           </td>
           <td

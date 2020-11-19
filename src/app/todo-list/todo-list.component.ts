@@ -74,22 +74,27 @@ export class TodoListComponent implements OnInit, OnDestroy {
         isDone: false,
       };
       this.crudService.addTask(newTask).catch((error) => console.log(error));
-      this.addChangeTaskGroup.patchValue({ taskText: '' });
+    } else if (this.action === 'change') {
+      // TODO: объявлять конкретно change или можно просто else
+      const id = this.idTaskChange;
+      const modifiedTextTask = {
+        text: this.addChangeTaskGroup.value.taskText,
+      };
+      this.crudService
+        .updateTask(id, modifiedTextTask)
+        .catch((error) => console.log(error));
     }
-    // TODO: Сделать изменение задачи
-    // else if (this.action === 'change') {
-    //   // TODO: объявлять конкретно change или можно просто else
-    //   const i = this.inputNumber;
-    //   this.todoList[i].text = this.addChangeTaskGroup.value.taskText;
-    //
-    //   this.addChangeTaskGroup.patchValue({ taskText: '' });
-    // }
+    this.addChangeTaskGroup.patchValue({ taskText: '' });
     this.isUnhideAddChangeTaskContainer = false;
   }
 
-  changeIsDoneTask(inputNumber): void {
-    const currentValue = this.todoList[inputNumber].isDone;
-    this.todoList[inputNumber].isDone = !currentValue;
+  changeIsDoneTask(id, currentIsDone): void {
+    const modifiedIsDoneTask = {
+      isDone: !currentIsDone,
+    };
+    this.crudService
+      .updateTask(id, modifiedIsDoneTask)
+      .catch((error) => console.log(error));
   }
 
   deleteTask(id): void {
