@@ -1,16 +1,17 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { ITask } from '../modules/itask';
 import { CrudService } from './crud.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss'],
 })
-export class TodoListComponent implements OnInit {
+export class TodoListComponent implements OnInit, OnDestroy {
   dataValue: Array<any>;
   todoList: Array<ITask> = [
     { id: 1, text: 'Отказаться от Газпромбанка', isDone: false },
@@ -31,39 +32,37 @@ export class TodoListComponent implements OnInit {
   btnInputName: string;
   action: 'add' | 'change' = null;
 
+  subscription: Subscription;
+  todoList2: Array<ITask>;
+
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
     private crudService: CrudService
   ) {
-    // this.getData();
-    //
-    // setTimeout(
-    //   () =>
-    //     this.dataValue.forEach((value, i) =>
-    //       this.todoList.push({
-    //         id: i,
-    //         text: value.title,
-    //         isDone: value.completed,
-    //       })
-    //     ),
-    //   1000
-    // );
-    //
-    // setTimeout(() => this.todoList.splice(10, 190), 1200);
-  }
-
-  ngOnInit(): void {
     this.addChangeTaskGroup = this.fb.group({
       taskText: ['', Validators.required],
     });
   }
 
-  // getData(): void {
-  //   this.http
-  //     .get<any>('https://jsonplaceholder.typicode.com/todos')
-  //     .subscribe((data) => (this.dataValue = Object.values(data)));
-  // }
+  ngOnInit(): void {
+    this.subscription = this.crudService.getAllTasks().subscribe((data) => {
+      this.todoList2 = data.map((task) => {
+        console.log(task);
+        return {
+          id: task.payload.doc.data().id,
+          text: task.payload.doc.data().text,
+          isDone: task.payload.doc.data().isDone,
+        };
+      });
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
 
   displayInputTaskContainer(action: 'add' | 'change', index?: number): void {
     this.isUnhideAddChangeTaskContainer = true;
