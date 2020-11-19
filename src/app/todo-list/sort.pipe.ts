@@ -10,6 +10,7 @@ export class SortPipe implements PipeTransform {
     order: 'text' | 'isDone',
     reverse: boolean
   ): Array<ITask> {
+    // TODO: переделать пайп под типы
     if (order === 'text') {
       value.sort((a, b) =>
         a[order].toLowerCase() > b[order].toLowerCase() ? 1 : -1
