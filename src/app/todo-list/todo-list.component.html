@@ -48,7 +48,8 @@
       <tbody>
         <tr
           *ngFor="
-            let task of todoList
+            let task of $todoList
+              | async
               | search: searchText
               | sort: sortOrder:sortReverse
           "
@@ -120,6 +121,6 @@
     </section>
   </main>
   <p>Текущий ID: {{ idTaskChange }}</p>
-  <p>Текщуий todoList: {{ todoList | json }}</p>
+  <pre>Текщуий todoList: {{ $todoList | async | json }}</pre>
   <app-footer class="mt-auto"></app-footer>
 </div>

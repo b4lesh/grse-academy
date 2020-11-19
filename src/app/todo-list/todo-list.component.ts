@@ -3,7 +3,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { ITask } from '../modules/itask';
 import { CrudService } from './crud.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-todo-list',
@@ -11,8 +12,10 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./todo-list.component.scss'],
 })
 export class TodoListComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
   subscription: Subscription; // Подписка для todoList
-  todoList: Array<ITask>; // Полный список задач
+  $todoList: Observable<any>; // Полный список задач
 
   searchText = ''; // Поле для поиска задач
   sortOrder: 'text' | 'isDone' = null; // Принимает какое поле сортировать
@@ -35,14 +38,57 @@ export class TodoListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscription = this.crudService.getAllTasks().subscribe((data) => {
-      this.todoList = data.map((element) => ({
-        id: element.payload.doc.id,
-        text: element.payload.doc.data().text,
-        isDone: element.payload.doc.data().isDone,
-      }));
-    });
+    this.$todoList = this.crudService.getAllTasks().pipe(
+      map((actions: any) => {
+        return actions.map((a) => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    );
+    // console.log(element.payload.doc);
+    // return {
+    //   id: element.payload.doc.id,
+    //   text: element.payload.doc.data().text,
+    //   isDone: element.payload.doc.data().isDone,
+    // };
+
+    // this.listItems();
+    //   this.subscription = this.crudService
+    //     .getAllTasks()
+    //     .snapshotChanges()
+    //     .pipe(
+    //       map((element) => ({
+    //         id: element.payload.doc.id,
+    //         text: element.payload.doc.data().text,
+    //         isDone: element.payload.doc.data().isDone,
+    //       }))
+    //     )
+    //     .subscribe((data) => this.todoList = data)
   }
+
+  // listItems(): void {
+  //   this.crudService
+  //     .getAllTasks()
+  //     .snapshotChanges()
+  //     .pipe(
+  //       map((actions: any) => {
+  //         return actions.map((element) => {
+  //           const item = {
+  //             id: element.payload.doc.id,
+  //             text: element.payload.doc.data().text,
+  //             isDone: element.payload.doc.data().isDone,
+  //           };
+  //           return item;
+  //         });
+  //       })
+  //     )
+  //     .subscribe((response) => {
+  //       this.todoList = response;
+  //       console.log('response', response);
+  //     });
+  // }
 
   ngOnDestroy(): void {
     if (this.subscription) {
@@ -100,6 +146,8 @@ export class TodoListComponent implements OnInit, OnDestroy {
   deleteTask(id): void {
     this.crudService.deleteTask(id).catch((error) => console.log(error));
     this.isUnhideAddChangeTaskContainer = false;
+    // this.crudService.getAllTasks();
+    // this.listItems();
   }
 
   sortTable(sortOrder: 'isDone' | 'text'): void {
