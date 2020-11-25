@@ -9,8 +9,12 @@ import { ITask } from '../modules/itask';
 export class CrudService {
   constructor(private angularFirestore: AngularFirestore) {}
 
-  getAllTasks(): Observable<any> {
-    return this.angularFirestore.collection('todo-list').snapshotChanges();
+  getAllTasks(currentUser): Observable<any> {
+    return this.angularFirestore
+      .collection('todo-list', (ref) =>
+        ref.where('username', '==', currentUser)
+      )
+      .snapshotChanges();
   }
 
   addTask(task: ITask): Promise<any> {
