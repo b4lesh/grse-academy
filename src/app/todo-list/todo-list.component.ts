@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./todo-list.component.scss'],
 })
 export class TodoListComponent implements OnInit, OnDestroy {
+  currentUser: string;
   subscription: Subscription; // Подписка для todoList
   todoList: Array<ITask>; // Полный список задач
 
@@ -29,19 +30,26 @@ export class TodoListComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private crudService: CrudService
   ) {
+    this.currentUser = localStorage.getItem('currentUser').toLowerCase();
+
     this.addChangeTaskGroup = this.formBuilder.group({
       taskText: ['', Validators.required],
     });
   }
 
   ngOnInit(): void {
-    this.subscription = this.crudService.getAllTasks().subscribe((data) => {
-      this.todoList = data.map((element) => ({
-        id: element.payload.doc.id,
-        text: element.payload.doc.data().text,
-        isDone: element.payload.doc.data().isDone,
-      }));
-    });
+    this.subscription = this.crudService
+      .getAllTasks(this.currentUser)
+      .subscribe((data) => {
+        this.todoList = data.map((element) => {
+          console.log(element.payload.doc.data());
+          return {
+            id: element.payload.doc.id,
+            text: element.payload.doc.data().text,
+            isDone: element.payload.doc.data().isDone,
+          };
+        });
+      });
   }
 
   ngOnDestroy(): void {
@@ -72,6 +80,8 @@ export class TodoListComponent implements OnInit, OnDestroy {
       const newTask: ITask = {
         text: this.addChangeTaskGroup.value.taskText,
         isDone: false,
+        dateCreated: new Date(),
+        username: this.currentUser,
       };
       this.crudService.addTask(newTask).catch((error) => console.log(error));
     } else if (this.action === 'change') {
